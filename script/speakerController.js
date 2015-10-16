@@ -36,8 +36,6 @@ function speakerContrller($scope) {
         return $scope.selectedLanguages[language.code];
     };
     
-    $scope.toogleLanguage(EN);
-    
     $scope.phrases = [];
     
     $scope.allPhrases = [
@@ -136,5 +134,10 @@ function speakerContrller($scope) {
         }
     }
     
-    listenInit();
+    function Init() {
+        $scope.toogleLanguage($scope.languages[1]);
+        listenInit();
+    }
+    
+    Init();
 }
