@@ -1,57 +1,124 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
     <head>
-        <title>Speaker</title>
-        <link rel="stylesheet" href="css/main.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">        
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>            
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="bower_components/angular/angular.min.js"></script>
+        <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="bower_components/underscore/underscore-min.js"></script>
+        <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
     </head>
     <body>
-        <div ng-app="app" ng-controller="mainController">
+        
+        <script>
+          dataLayer = [{
+			title: 'Speaker',
+            version: '1.0.0'
+		  }];
+        </script>
+        
+        <!-- Google Tag Manager -->
+        <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-WTXKX2"
+        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-WTXKX2');</script>
+        <!-- End Google Tag Manager -->        
+        
+        
+        <div ng-app="app" ng-controller="speakerContrller" class="container">
+
+            <div class="row">
+                <div class="col-md-3 box">
+                </div>
+                
+                <div class="col-md-6 box">
+                    <div>
+                        <center class="big-title">SPEAKER</center>                        
+                    </div>
+                </div>
+                
+                <div class="col-md-3 box">    
+                </div>
+            </div>
             
-            <div>{{selectedPhrase.text}}</div>
+            <div id="second-row" class="row" ng-cloak>
+                <div class="col-md-3 box side-menu-left">
+                    <div class="menu-item">LEARN</div>
+                    <div class="menu-item">TEST</div>
+                    <div class="menu-item">COMPOSE</div>
+                </div>
+                
+                <div class="col-md-6 box">
+                    <div>
+                        <center>
+                            <div class="languages" ng-repeat="language in languages">
+                                <div class="language"
+                                     ng-click="toogleLanguage(language)"
+                                     ng-class="{'language-selected': isLanguageSelected(language)}">
+                                    {{language.label}}
+                                </div>
+                            </div>
+                         </center>
+                    </div>
+                </div>
+                
+                <div class="col-md-3 box">
+                    <div class="side-menu-right">
+                        <div class="menu-item">LOGIN</div>
+                        <div class="menu-item">SETUP</div>
+                        <div class="menu-item">ABOUT</div>
+                    </div>
+                </div>
+            </div>
             
             <div class="row">
-              <div class="col-lg-6">
-                <div class="input-group">
-                  <input type="text" 
-                         class="form-control" 
-                         placeholder="add phrase..." 
-                         ng-model="phraseToAdd"
-                         ng-keypress="addPhraseByPressEnter($event, phraseToAdd)">
-                  <span class="input-group-btn">
-                    <button class="btn btn-default" 
-                            type="button"
-                            ng-click="addPhrase(phraseToAdd)"
-                            >Add</button>
-                  </span>
+                <div class="col-md-3 box">
                 </div>
-              </div>
-            </div>
-            
-            <ul class="list-group">
-              <li class="list-group-item"
-                  ng-repeat="phrase in phrases track by $index"
-                  ng-click="selectPhrase(phrase)">
-                  <button type="button" class="btn btn-default" ng-click="removePhrase(phrase)"> x </button>
-                  <span>{{phrase.text}}</span>
-                </li>
-              
-            </ul>            
-            
-            <div>
-                <div >
-                    
-                    <br/>
+                
+                <div class="col-md-6 box">
+                    <div>
+                        <center>
+                            <div >
+                                <div class="recogized-phrase">
+                                    {{recogizedPhrase}}
+                                </div>
+                            </div>
+<!--
+                            <textarea cols="40" rows="5" class="recogized-phrase" placeholder="say it ...">
+                                {{recogizedPhrase}}
+                            </textarea>
+                            
+                            <input type="text" 
+                                   ng-model="recogizedPhrase"
+                                   class="recogized-phrase"
+                                   placeholder="say it ...">
+-->
+                            
+                            <div class="phrases">
+                                <div class="phrase"
+                                     ng-click="tooglePhrase(phrase)"
+                                     ng-class="{'phrase-selected': isPhraseSelected(phrase)}"
+                                     ng-repeat="phrase in phrases">                                    
+                                    {{phrase.text}}
+                                </div>
+                            </div>
+                            
+                        </center>                        
+                    </div>
                 </div>
-            </div>
+                
+                <div class="col-md-3 box">    
+                </div>
+            </div>            
             
         </div>
-
-        <script src="js/main.js"></script>
-        <script src="js/mainController.js"></script> 
+        
+        
+        <script src="script/speakerController.js"></script>
     </body>
 </html>
