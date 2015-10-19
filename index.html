@@ -2,11 +2,13 @@
 <html lang="en">
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script src="bower_components/jquery/dist/jquery.min.js"></script>
-        <script src="bower_components/angular/angular.min.js"></script>
-        <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src="bower_components/underscore/underscore-min.js"></script>
-        <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.css">
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.1/angular.min.js"></script>    
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+        
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine">
         <link rel="stylesheet" type="text/css" href="css/style.css">
     </head>
@@ -87,18 +89,7 @@
                                 <div class="recogized-phrase">
                                     {{recogizedPhrase}}
                                 </div>
-                            </div>
-<!--
-                            <textarea cols="40" rows="5" class="recogized-phrase" placeholder="say it ...">
-                                {{recogizedPhrase}}
-                            </textarea>
-                            
-                            <input type="text" 
-                                   ng-model="recogizedPhrase"
-                                   class="recogized-phrase"
-                                   placeholder="say it ...">
--->
-                            
+                            </div>                        
                             <div class="phrases">
                                 <div class="phrase"
                                      ng-click="tooglePhrase(phrase)"
