@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.1/angular.min.js"></script>    
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+        
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+    </head>
+    <body>
+        
+        <script>
+          dataLayer = [{
+			title: 'Speaker',
+            version: '1.0.1'
+		  }];
+        </script>
+        
+        <!-- Google Tag Manager -->
+        <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-WTXKX2"
+        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-WTXKX2');</script>
+        <!-- End Google Tag Manager -->        
+        
+        
+        <div ng-app="app" ng-controller="speakerContrller" class="container">
+
+            <div class="row">
+                <div class="col-md-3 box">
+                </div>
+                
+                <div class="col-md-6 box">
+                    <div>
+                        <center class="big-title">SPEAKER</center>                        
+                    </div>
+                </div>
+                
+                <div class="col-md-3 box">    
+                </div>
+            </div>
+            
+            <div id="second-row" class="row" ng-cloak>
+                <div class="col-md-3 box side-menu-left">
+                    <div class="menu-item">LEARN</div>
+                    <div class="menu-item">TEST</div>
+                    <div class="menu-item">COMPOSE</div>
+                </div>
+                
+                <div class="col-md-6 box">
+                    <div>
+                        <center>
+                            <div class="languages" ng-repeat="language in languages">
+                                <div class="language"
+                                     ng-click="toogleLanguage(language)"
+                                     ng-class="{'language-selected': isLanguageSelected(language)}">
+                                    {{language.label}}
+                                </div>
+                            </div>
+                         </center>
+                    </div>
+                </div>
+                
+                <div class="col-md-3 box">
+                    <div class="side-menu-right">
+                        <div class="menu-item">LOGIN</div>
+                        <div class="menu-item">SETUP</div>
+                        <div class="menu-item">ABOUT</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-3 box">
+                </div>
+                
+                <div class="col-md-6 box">
+                    <div>
+                        <center>
+                            <div >
+                                <div class="recogized-phrase">
+                                    {{recogizedPhrase}}
+                                </div>
+                            </div>                        
+                            <div class="phrases">
+                                <div class="phrase"
+                                     ng-click="tooglePhrase(phrase)"
+                                     ng-class="{'phrase-selected': isPhraseSelected(phrase)}"
+                                     ng-repeat="phrase in phrases">                                    
+                                    {{phrase.text}}
+                                </div>
+                            </div>
+                            
+                        </center>                        
+                    </div>
+                </div>
+                
+                <div class="col-md-3 box">    
+                </div>
+            </div>            
+            
+        </div>
+        
+        
+        <script src="script/speakerController.js"></script>
+    </body>
+</html>
