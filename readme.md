@@ -1,55 +1,67 @@
 # Overview
 Speaker is a tool for learn a language by using google speech synthesizer and recognizer.
+# Browsers
+- Chrome
+- Firefox ?
+- IE ?
+
 # Technology stack
 #### Production
-[Angular2](https://angular.io/), systemjs, jquery, bootstrap, underscore.js,
+- [Angular2](https://angular.io/), systemjs, jquery, bootstrap, underscore,
+- express, path
+
 #### Development
-[nodejs](https://nodejs.org/en/),
-scss, live-server, gulp, gulp-sass, gulp-tsc
+- [nodejs](https://nodejs.org/en/), scss,  gulp, gulp-sass, gulp-tsc
+- live-server,
 
 #### IDE's
-[Atom](https://atom.io/),
-[Brackets](http://brackets.io/),
-atom-typescript
+- [Atom](https://atom.io/), atom-typescript, atom-beautify
+- [Brackets](http://brackets.io/),
 
 # Local installation step by step
+#### Development
 - install [nodejs](https://nodejs.org/en/) for Node Package Manager (npm)
-- install angular2, jquery, bootstrap, underscore
+- install Angular2
 ```
 npm i angular2
-npm i jquery
-npm i bootstrap
-npm i underscore
 ```
 - install live-server
 ```
 npm i -g live-server
 ```
-- install systemjs
-```
-npm i systemjs
-```
-- install gulp globally
+- install gulp task runner globally
 ```
 npm i --g gulp
 ```
-- Install gulp in project
+- Install gulp task runner in project
 ```
 npm i --save-dev gulp
 ```
-- Install gulp-sass (if not supported by IDE)
+- Install gulp-sass compiler (if not supported by IDE)
 ```
-npm i gulp-sass compiler
+npm i gulp-sass
 ```
 - Install gulp typescript compiler (if not supported by IDE)
 ```
 npm i gulp-tsc
 ```
 
+#### Production
+- install express and path
+```
+npm i express path
+```
+
 # Run
+#### Development
+- run gulp task runner
 ```
 gulp
 ```
+- start live-server server (defined in package.json)
 ```
 npm start
 ```
+
+# Deploy
+#### Azure

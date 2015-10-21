@@ -1,0 +1,71 @@
+<html>
+
+<head>
+  <title>Speacer v 0.2.0</title>
+
+  <script src="https://code.angularjs.org/tools/system.js"></script>
+  <script src="https://code.angularjs.org/2.0.0-alpha.44/angular2.dev.js"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+
+  <script>
+    System.config({
+      packages: {
+        'app': {
+          defaultExtension: 'js'
+        }
+      }
+    });
+    System.import('app/js/languages');
+  </script>
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3 box">
+      </div>
+
+      <div class="col-md-6 box">
+        <div>
+          <center class="big-title">SPEAKER</center>
+        </div>
+      </div>
+
+      <div class="col-md-3 box">
+      </div>
+    </div>
+
+    <div id="second-row" class="row" ng-cloak>
+      <div class="col-md-3 box side-menu-left">
+        <div class="menu-item">LEARN</div>
+        <div class="menu-item">TEST</div>
+        <div class="menu-item">COMPOSE</div>
+      </div>
+
+      <div class="col-md-6 box">
+        <div>
+          <center>
+            <languages-set>loading...</languages-set>
+          </center>
+        </div>
+      </div>
+
+      <div class="col-md-3 box">
+        <div class="side-menu-right">
+          <div class="menu-item">LOGIN</div>
+          <div class="menu-item">SETUP</div>
+          <div class="menu-item">ABOUT</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
