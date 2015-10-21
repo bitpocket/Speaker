@@ -2,7 +2,7 @@ import {Component, bootstrap, FORM_DIRECTIVES, NgFor, NgClass} from 'angular2/an
 
 @Component({
   selector: 'languages-set',
-  template:
+  template: 
   `
     <div class="languages" *ng-for="#language of languages">
       <div class="language"
@@ -13,7 +13,7 @@ import {Component, bootstrap, FORM_DIRECTIVES, NgFor, NgClass} from 'angular2/an
     </div>
   `,
   directives: [FORM_DIRECTIVES, NgFor, NgClass]
-})
+}) 
 
 class languagesSetComponent {
   private selectedLanguage : Language = null;
@@ -25,7 +25,7 @@ class languagesSetComponent {
     this.selectedLanguages[language.code] = true;
     this.selectedLanguage = language;
 
-    //TODO: select phrases
+    //TODO: select phrases 
   }
 
   isLanguageSelected(language){

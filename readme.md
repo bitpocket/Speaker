@@ -39,7 +39,7 @@ npm i --save-dev gulp
 ```
 - Install gulp-sass (if not supported by IDE)
 ```
-npm i gulp sass compiler
+npm i gulp-sass compiler
 ```
 - Install gulp typescript compiler (if not supported by IDE)
 ```

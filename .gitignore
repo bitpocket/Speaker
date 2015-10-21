@@ -29,3 +29,4 @@ node_modules
 bower_components
 **/src/app/js
 **/src/css
+src/spp/js
