@@ -1,0 +1,59 @@
+<html>
+  <head>
+    <title>Angular 2 QuickStart</title>
+    <script src="../node_modules/systemjs/dist/system.src.js"></script>
+    <script src="../node_modules/angular2/bundles/angular2.dev.js"></script>
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../node_modules/underscore/underscore-min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+
+    <script>
+      System.config({
+        packages: {'app': {defaultExtension: 'js'}}
+      });
+      System.import('app/js/languages');
+    </script>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+  </head>
+  <body>
+    <div class="row">
+        <div class="col-md-3 box">
+        </div>
+
+        <div class="col-md-6 box">
+            <div>
+                <center class="big-title">SPEAKER</center>
+            </div>
+        </div>
+
+        <div class="col-md-3 box">
+        </div>
+    </div>
+
+    <div id="second-row" class="row" ng-cloak>
+        <div class="col-md-3 box side-menu-left">
+            <div class="menu-item">LEARN</div>
+            <div class="menu-item">TEST</div>
+            <div class="menu-item">COMPOSE</div>
+        </div>
+
+        <div class="col-md-6 box">
+            <div>
+                <center>
+                  <languages-set>loading languages</languages-set>
+                 </center>
+            </div>
+        </div>
+
+        <div class="col-md-3 box">
+            <div class="side-menu-right">
+                <div class="menu-item">LOGIN</div>
+                <div class="menu-item">SETUP</div>
+                <div class="menu-item">ABOUT</div>
+            </div>
+        </div>
+    </div>
+
+  </body>
+</html>
