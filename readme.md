@@ -8,7 +8,7 @@ Speaker is a tool for learn a language by using google speech synthesizer and re
 # Technology stack
 #### Production
 - [Angular2](https://angular.io/), systemjs, jquery, bootstrap, underscore,
-- express, path
+- [Azure](http://speaker.azurewebsites.net/)
 
 #### Development
 - [nodejs](https://nodejs.org/en/), scss,  gulp, gulp-sass, gulp-tsc
@@ -47,9 +47,10 @@ npm i gulp-tsc
 ```
 
 #### Production
-- install express and path
+- Add an App Setting on Azure to point at index.html folder
 ```
-npm i express path
+key:  Project
+value: src
 ```
 
 # Run
