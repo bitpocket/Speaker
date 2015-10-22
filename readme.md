@@ -21,9 +21,10 @@ Speaker is a tool for learn a language by using google speech synthesizer and re
 # Local installation step by step
 #### Development
 - install [nodejs](https://nodejs.org/en/) for Node Package Manager (npm)
-- install Angular2
+- install Angular2, underscore
 ```
 npm i angular2
+npm i underscore
 ```
 - install live-server
 ```

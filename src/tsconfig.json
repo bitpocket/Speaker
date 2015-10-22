@@ -22,7 +22,16 @@
     "!node_modules/**"
   ],
   "files": [
-    "languages.ts"
+    "app/app.ts",
+    "app/languages.ts",
+    "app/languagesBar.ts",
+    "app/phrase.ts",
+    "app/phrasesList.ts",
+    "components/app.ts",
+    "components/content/content.ts",
+    "components/main-app/main-app.ts",
+    "components/menu/menu.ts",
+    "components/top-header/top-header.ts"
   ],
   "exclude": []
 }

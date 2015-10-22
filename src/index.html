@@ -16,17 +16,36 @@
   <script>
     System.config({
       packages: {
-        'app': {
+        'js': {
           defaultExtension: 'js'
         }
       }
     });
-    System.import('app/js/languages');
+    System.import('js/app/languagesBar');
+    System.import('js/app/phrasesList');
+    //System.import('js/components/main-app/main-app');
+
+    System.import('js/components/app.js')
+      .then(function(module) {
+        return module.main();
+      })
+      .catch(console.error.bind(console));
+
+    // System.import('js/components/top-header/top-header');
+    // System.import('js/components/menu/menu');
+    // System.import('js/components/content/content');
+
+    // System.import('js/app/languagesBar');
+    // System.import('js/app/phrasesList');
+    // System.import('js/app/main-app/main-app');
   </script>
 
 </head>
 
 <body>
+
+  <main-app></main-app>
+
   <div class="container">
     <div class="row">
       <div class="col-md-3 box">
@@ -45,7 +64,7 @@
     <div id="second-row" class="row" ng-cloak>
       <div class="col-md-3 box side-menu-left">
         <div class="menu-item">LEARN</div>
-        <div class="menu-item">TEST</div>
+        <div class="menu-item menu-disabled">TEST</div>
         <div class="menu-item">COMPOSE</div>
       </div>
 
@@ -59,12 +78,41 @@
 
       <div class="col-md-3 box">
         <div class="side-menu-right">
-          <div class="menu-item">LOGIN</div>
-          <div class="menu-item">SETUP</div>
-          <div class="menu-item">ABOUT</div>
+          <div class="menu-item menu-disabled">LOGIN</div>
+          <div class="menu-item menu-disabled">SETUP</div>
+          <div class="menu-item menu-disabled">ABOUT</div>
         </div>
       </div>
     </div>
+
+    <div class="row">
+      <div class="col-md-3 box">
+      </div>
+
+      <div class="col-md-6 box">
+        <div>
+          <center>
+            <phrases-list>loading... </phrases-list>
+            <!-- <div>
+              <div class="recogized-phrase">
+                {{recogizedPhrase}}
+              </div>
+            </div>
+            <div class="phrases">
+              <div class="phrase" ng-click="tooglePhrase(phrase)" ng-class="{'phrase-selected': isPhraseSelected(phrase)}" ng-repeat="phrase in phrases">
+                {{phrase.text}}
+              </div>
+            </div> -->
+
+          </center>
+        </div>
+      </div>
+
+      <div class="col-md-3 box">
+      </div>
+    </div>
+
+
   </div>
 </body>
 
