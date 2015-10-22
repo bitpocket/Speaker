@@ -10,21 +10,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var angular2_1 = require('angular2/angular2');
-var language_menu_1 = require('../language-menu/language-menu');
-var Menu = (function () {
-    function Menu() {
+var phrase_list_1 = require('../phrase-list/phrase-list');
+var MainContent = (function () {
+    function MainContent() {
     }
-    Menu = __decorate([
+    MainContent = __decorate([
         angular2_1.Component({
-            selector: 'menu',
-            templateUrl: 'components/menu/menu.html',
-            directives: [
-                language_menu_1.LanguageMenu
-            ]
+            selector: 'main-content',
+            templateUrl: 'components/main-content/main-content.html',
+            directives: [phrase_list_1.PhraseList]
         }), 
         __metadata('design:paramtypes', [])
-    ], Menu);
-    return Menu;
+    ], MainContent);
+    return MainContent;
 })();
-exports.Menu = Menu;
-//# sourceMappingURL=menu.js.map
+exports.MainContent = MainContent;
+//# sourceMappingURL=main-content.js.map

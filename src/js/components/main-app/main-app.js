@@ -11,8 +11,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var angular2_1 = require('angular2/angular2');
 var top_header_1 = require('../top-header/top-header');
-var Menu_1 = require('../Menu/Menu');
-var content_1 = require('../content/content');
+var menu_1 = require('../menu/menu');
+var main_content_1 = require('../main-content/main-content');
 var MainApp = (function () {
     function MainApp() {
     }
@@ -22,8 +22,8 @@ var MainApp = (function () {
             templateUrl: 'components/main-app/main-app.html',
             directives: [
                 top_header_1.TopHeader,
-                Menu_1.Menu,
-                content_1.Content
+                menu_1.Menu,
+                main_content_1.MainContent
             ]
         }), 
         __metadata('design:paramtypes', [])

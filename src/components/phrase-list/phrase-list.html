@@ -1,0 +1,14 @@
+<div>
+  <div class="recogized-phrase">
+    {{recogizedPhrase}}
+  </div>
+</div>
+
+<div class="phrases">
+  <div class="phrase"
+    (click)="tooglePhrase(phrase)"
+    [ng-class]="{'phrase-selected': isPhraseSelected(phrase)}"
+    *ng-for="#phrase of phrases; #i=index">
+    {{phrase.text}}
+  </div>
+</div>

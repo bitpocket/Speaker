@@ -22,15 +22,21 @@
     "!node_modules/**"
   ],
   "files": [
-    "app/app.ts",
-    "app/languages.ts",
     "app/languagesBar.ts",
-    "app/phrase.ts",
+    "app/models/languages.ts",
+    "app/models/phrase.ts",
     "app/phrasesList.ts",
+    "app/services/languageService.ts",
+    "app/services/phraseService.ts",
+    "app/services/settingsService.ts",
+    "app/services/store.ts",
+    "app/utils/uuid.ts",
     "components/app.ts",
-    "components/content/content.ts",
+    "components/language-menu/language-menu.ts",
     "components/main-app/main-app.ts",
+    "components/main-content/main-content.ts",
     "components/menu/menu.ts",
+    "components/phrase-list/phrase-list.ts",
     "components/top-header/top-header.ts"
   ],
   "exclude": []

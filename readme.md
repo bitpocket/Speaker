@@ -7,11 +7,11 @@ Speaker is a tool for learn a language by using google speech synthesizer and re
 
 # Technology stack
 #### Production
-- [Angular2](https://angular.io/), systemjs, jquery, bootstrap, underscore,
+- [Angular2](https://angular.io/), systemjs, bootstrap,
 - [Azure](http://speaker.azurewebsites.net/)
 
 #### Development
-- [nodejs](https://nodejs.org/en/), scss,  gulp, gulp-sass, gulp-tsc
+- [nodejs](https://nodejs.org/en/), scss, gulp, gulp-sass, gulp-tsc
 - live-server,
 
 #### IDE's
@@ -21,10 +21,9 @@ Speaker is a tool for learn a language by using google speech synthesizer and re
 # Local installation step by step
 #### Development
 - install [nodejs](https://nodejs.org/en/) for Node Package Manager (npm)
-- install Angular2, underscore
+- install Angular2
 ```
 npm i angular2
-npm i underscore
 ```
 - install live-server
 ```
