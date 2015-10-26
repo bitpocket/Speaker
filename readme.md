@@ -7,7 +7,7 @@ Speaker is a tool for learn a language by using google speech synthesizer and re
 
 # Technology stack
 #### Production
-- [Angular2](https://angular.io/), systemjs, bootstrap,
+- [Angular2](https://angular.io/), systemjs, bootstrap, jquery
 - [Azure](http://speaker.azurewebsites.net/)
 
 #### Development

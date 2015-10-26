@@ -22,13 +22,12 @@
     "!node_modules/**"
   ],
   "files": [
-    "app/languagesBar.ts",
     "app/models/languages.ts",
     "app/models/phrase.ts",
-    "app/phrasesList.ts",
     "app/services/languageService.ts",
     "app/services/phraseService.ts",
     "app/services/settingsService.ts",
+    "app/services/speakService.ts",
     "app/services/store.ts",
     "app/utils/uuid.ts",
     "components/app.ts",
