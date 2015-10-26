@@ -10,8 +10,8 @@ function speakerContrller($scope) {
         PL = 'pl-PL',
         PT = 'pt-PT',
         SK = 'sk-SK';
-    
-    $scope.languages = [ 
+
+    $scope.languages = [
         { label: 'CS', code: CS },
         { label: 'EN', code: EN },
         { label: 'ES', code: ES },
@@ -20,24 +20,24 @@ function speakerContrller($scope) {
         { label: 'PL', code: PL },
         { label: 'PT', code: PT },
         { label: 'SK', code: SK }];
-    
+
     $scope.selectedLanguages = {};
     $scope.toogleLanguage = function (language) {
         $scope.selectedLanguages = {};
         $scope.selectedLanguages[language.code] = true;
         $scope.selectedLanguage = language;
-        
-        $scope.phrases = _.filter($scope.allPhrases, function(p) { 
-            return p.language === $scope.selectedLanguage.code; 
+
+        $scope.phrases = _.filter($scope.allPhrases, function(p) {
+            return p.language === $scope.selectedLanguage.code;
         });
     };
-    
+
     $scope.isLanguageSelected = function (language) {
         return $scope.selectedLanguages[language.code];
     };
-    
+
     $scope.phrases = [];
-    
+
     $scope.allPhrases = [
         {   text: "I'd just like a word with you, if I might.",
             language: EN },
@@ -57,7 +57,7 @@ function speakerContrller($scope) {
         u.onend = callBack;
         speechSynthesis.speak(u);
     }
-    
+
     function listen(phrase) {
         if ($scope.recognizing) {
             recognition.stop();
@@ -67,38 +67,40 @@ function speakerContrller($scope) {
             recognition.start();
         }
     }
-    
+
     $scope.selectedPhrases = {};
     $scope.tooglePhrase = function (phrase) {
         $scope.selectedPhrases = {};
         $scope.selectedPhrases[phrase.text] = true;
         $scope.selectedPhrase = phrase;
-        speak(phrase, listen(phrase));
+        speak(phrase, function (argument) {
+          listen(phrase);
+        });
     };
-    
+
     $scope.isPhraseSelected = function (phrase) {
         return $scope.selectedPhrases[phrase.text];
     };
-    
+
     $scope.recognizing = false;
     $scope.recogizedPhrase = '';
     $scope.getRecogizedPhrase = function () {
         return $scope.recogizedPhrase || 'Say it ...';
     };
-    
+
     $scope.isRecognizing = function () {
         return $scope.recognizing;
     };
-    
+
     var recognition = null,
         listenInit = function () {
         if ('webkitSpeechRecognition' in window) {
-            
+
             recognition = new webkitSpeechRecognition();
             recognition.continuous = false;
             recognition.interimResults = true;
             recognition.lang = 'en-US';
-            
+
             recognition.onstart = function () {
                 $scope.recognizing = true;
                 $scope.$apply();
@@ -117,7 +119,7 @@ function speakerContrller($scope) {
                 for (var i = event.resultIndex; i < event.results.length; ++i) {
                     var confid = event.results[i][0].confidence,
                         confidFix = parseFloat(Math.round(confid * 100) / 100).toFixed(2);
-                    
+
                     if (event.results[i].isFinal) {
                         $scope.recogizedPhrase = event.results[i][0].transcript + ' (' + confidFix + ')';
                         recognition.stop();
@@ -128,16 +130,16 @@ function speakerContrller($scope) {
                         $scope.recogizedPhrase = event.results[i][0].transcript + ' (' + confidFix + ')';
                         console.log($scope.recogizedPhrase);
                         $scope.$apply();
-                    }                    
+                    }
                 }
             };
         }
     }
-    
+
     function Init() {
         $scope.toogleLanguage($scope.languages[1]);
         listenInit();
     }
-    
+
     Init();
 }
