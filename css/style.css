@@ -44,11 +44,14 @@ box {
 
 .right {
   position: absolute;
-  right: 0px; }
+  right: 0; }
 
 .center {
   width: 50%;
   margin: 0 auto; }
+
+.menu-disabled {
+  color: lightgray; }
 
 .recogized-phrase {
   width: 450px;
@@ -79,7 +82,7 @@ box {
 @media (min-width: 992px) {
   .side-menu-right {
     position: absolute;
-    right: 0px; }
+    right: 0; }
   .side-menu-left,
   .side-menu-right {
     top: -116px; } }
