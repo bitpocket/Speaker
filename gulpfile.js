@@ -1,12 +1,15 @@
 var gulp = require('gulp');
 var sass = require('gulp-sass');
-var ts = require('gulp-typescript');
+//var ts = require('gulp-typescript');
 
 var typescript = require('gulp-tsc');
- 
+
 gulp.task('compile', function(){
   gulp.src(['script/**/*.ts'])
-    .pipe(typescript())
+    .pipe(typescript({
+                 target: "ES5"
+             }
+    ))
     .pipe(gulp.dest('js/'))
 });
 
