@@ -34,6 +34,9 @@ box {
   color: white;
   background-color: lightgray; }
 
+.phrase-selected {
+  font-size: 100%; }
+
 ::selection {
   background: lightgray;
   /* WebKit/Blink Browsers */ }
@@ -54,12 +57,14 @@ box {
   width: 450px;
   position: relative;
   top: -160px;
+  font-size: 150%;
   background-color: aliceblue; }
 
 .speech-recognizing {
   border-color: brown; }
 
 .phrases {
+  font-size: 150%;
   position: relative;
   top: -160px; }
 
