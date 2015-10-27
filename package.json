@@ -1,8 +1,7 @@
 {
   "name": "Speaker",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "dependencies": {
-    "angular2": "2.0.0-alpha.44",
     "systemjs": "^0.19.2"
   },
   "devDependencies": {
@@ -13,7 +12,7 @@
   "main": "index.js",
   "scripts": {
     "tsc": "tsc -p src -w",
-    "start": "live-server --open=src"
+    "start": "live-server --open=wwwroot"
   },
   "repository": {
     "type": "git",
