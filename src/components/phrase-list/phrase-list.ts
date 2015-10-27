@@ -107,6 +107,16 @@ export class PhraseList {
 
   }
 
+  //
+  // Problem 3 - zones should not working well
+  //
+
+  //  ZONES
+  // In Angular 1 you have to tell the framework that it needs to run this check by doing scope.$apply.
+  // You don’t need to worry about it in Angular 2. Angular 2 uses Zone.js to know when this check is required.,
+  // This means that you do not need to call scope.$apply to integrate with third-party libraries.
+
+
   // //public that = this;
   // _final(inc:number){
   //    this._recogizedPhrase = inc;
