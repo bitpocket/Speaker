@@ -8,4 +8,10 @@ import {PhraseList} from '../phrase-list/phrase-list';
 })
 
 export class MainContent {
+  onUpdate(event) {
+    this.SomeValue = event.value;
+    console.log(event.value);
+  }
+  
+  SomeValue = '__';
 }

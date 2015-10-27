@@ -1,11 +1,14 @@
 <div class="row">
   <div class="col-md-3 box">
+    __ {{SomeValue}} __
   </div>
 
   <div class="col-md-6 box">
     <div>
       <center>
-        <phrase-list>loading... </phrase-listt>
+
+        <phrase-list (update)="onUpdate($event)">loading... </phrase-listt>
+
       </center>
     </div>
   </div>

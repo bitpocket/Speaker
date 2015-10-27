@@ -1,4 +1,4 @@
-import {Component, bootstrap, FORM_DIRECTIVES, NgFor, NgZone, NgClass} from 'angular2/angular2';
+import {Component, bootstrap, FORM_DIRECTIVES, NgFor, NgZone, NgClass, EventEmitter} from 'angular2/angular2';
 import {Phrase} from '../../app/models/phrase';
 import {LanguageService} from '../../app/services/languageService';
 import {SettingsService} from '../../app/services/settingsService';
@@ -6,10 +6,15 @@ import {PhraseService} from '../../app/services/phraseService';
 import {Store} from '../../app/services/store';
 import {SpeakService} from '../../app/services/speakService';
 
+import {Zone} from 'zone/lib/zone';
+//var EventEmitter = require('events');
+
 @Component({
   selector: 'phrase-list',
   templateUrl: 'components/phrase-list/phrase-list.html',
   directives: [FORM_DIRECTIVES, NgFor, NgClass],
+  events : ['update']
+
   //bind:{
   //  'allPhrases'}
 
@@ -28,6 +33,19 @@ export class PhraseList {
     private _ngZone: NgZone,
     private _speakService: SpeakService  ) {
 
+    this.update = new EventEmitter();
+
+
+    // this.emiter = new EventEmitter();
+    // this.emiter.addListener('forward-recognition', function()
+    // {
+    //     this._recogizedPhrase = '1234567890';
+    // });
+  }
+
+  update;
+  onUpdate($event) {
+    this._recogizedPhrase = 123456789;
   }
 
   private _recogizedPhrase : number = 0;// = 'Say it...';
@@ -75,9 +93,22 @@ export class PhraseList {
 
     var context = this;
 
+    //this.update.next({value: 'werqwerqwerwe'});
+
+    //this.emiter.emitEvent('forward-recognition');
+
     //
     // Problem 1 - detection change not working
     //
+
+    //this._ngZone.overrideOnEventDone(
+    //  function () {
+        // do some cleanup
+    //  });
+    //}).run(function () {
+      // do stuff
+    //});
+
 
 //    this._ngZone.run(function() {
       context.recognition = new webkitSpeechRecognition();
@@ -87,6 +118,7 @@ export class PhraseList {
       context.recognition.onresult = function(event) {
         for (var i = event.resultIndex; i < event.results.length; ++i) {
           context._recogizedPhrase += 1;
+          context.update.next({value: context._recogizedPhrase});
           console.log(event.results[i][0].transcript);
         }
       };

@@ -13,7 +13,12 @@ var angular2_1 = require('angular2/angular2');
 var phrase_list_1 = require('../phrase-list/phrase-list');
 var MainContent = (function () {
     function MainContent() {
+        this.SomeValue = '__';
     }
+    MainContent.prototype.onUpdate = function (event) {
+        this.SomeValue = event.value;
+        console.log(event.value);
+    };
     MainContent = __decorate([
         angular2_1.Component({
             selector: 'main-content',

@@ -25,7 +25,11 @@ var PhraseList = (function () {
         this._speakService = _speakService;
         this._recogizedPhrase = 0;
         this.selectedPhrases = {};
+        this.update = new angular2_1.EventEmitter();
     }
+    PhraseList.prototype.onUpdate = function ($event) {
+        this._recogizedPhrase = 123456789;
+    };
     Object.defineProperty(PhraseList.prototype, "recogizedPhrase", {
         get: function () {
             return this._recogizedPhrase;
@@ -50,6 +54,7 @@ var PhraseList = (function () {
         context.recognition.onresult = function (event) {
             for (var i = event.resultIndex; i < event.results.length; ++i) {
                 context._recogizedPhrase += 1;
+                context.update.next({ value: context._recogizedPhrase });
                 console.log(event.results[i][0].transcript);
             }
         };
@@ -70,6 +75,7 @@ var PhraseList = (function () {
             selector: 'phrase-list',
             templateUrl: 'components/phrase-list/phrase-list.html',
             directives: [angular2_1.FORM_DIRECTIVES, angular2_1.NgFor, angular2_1.NgClass],
+            events: ['update']
         }), 
         __metadata('design:paramtypes', [languageService_1.LanguageService, settingsService_1.SettingsService, phraseService_1.PhraseService, store_1.Store, angular2_1.NgZone, speakService_1.SpeakService])
     ], PhraseList);

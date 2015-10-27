@@ -7,6 +7,7 @@
 <div class="phrases">
   <div class="phrase"
     (click)="tooglePhrase(phrase)"
+    (update)="onUpdate($event)"
     [ng-class]="{'phrase-selected': isPhraseSelected(phrase)}"
     *ng-for="#phrase of phrases; #i=index">
     {{phrase.text}}
