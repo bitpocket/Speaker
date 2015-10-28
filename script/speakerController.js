@@ -58,7 +58,7 @@ function speakerContrller($scope) {
       text: "So where are you staying at the moment?",
       language: EN
     }, {
-      text: "Wwho are you living with ?",
+      text: "Who are you living with ?",
       language: EN
     }, {
       text: "What made you decide to come to the city in the first place?",
@@ -71,6 +71,30 @@ function speakerContrller($scope) {
       language: EN
     }, {
       text: "What are you like in the mornings?",
+      language: EN
+    }, {
+      text: "Auxiliary verbs usually accompany a main verb.",
+      language: EN
+    }, {
+      text: "Do you thing you will spend weekends here or offen go away? ???",
+      language: EN
+    }, {
+      text: "What ware last flatmates like ???",
+      language: EN
+    }, {
+      text: "sensible, really down to earth,",
+      language: EN
+    }, {
+      text: "and we just clicked.",
+      language: EN
+    }, {
+      text: "I felt very awkward about it.",
+      language: EN
+    }, {
+      text: "I was very anxious.",
+      language: EN
+    }, {
+      text: "I was really thrilled.",
       language: EN
     },
 
@@ -114,7 +138,9 @@ function speakerContrller($scope) {
     $scope.selectedPhrases = {};
     $scope.selectedPhrases[phrase.text] = true;
     $scope.selectedPhrase = phrase;
-    speak(phrase, function() {listen(phrase);});
+    speak(phrase, function() {
+      listen(phrase);
+    });
   };
 
   $scope.isPhraseSelected = function(phrase) {
