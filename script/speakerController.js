@@ -55,6 +55,15 @@ function speakerContrller($scope) {
   $scope.phrases = [];
 
   $scope.allPhrases = [{
+      text: "... having tap-dancing lessons, wearing extremely high heels.", //wysokie obcasy
+      language: EN
+    }, {
+      text: "He encourage his guests to undertake chellenges such as constructing flat-pack furniture.",
+      language: EN
+    }, {
+      text: "Not extraordinary things but mundane and fairly trivial activities.", // przyziemne, dosc-calkiem
+      language: EN
+    }, {
       text: "So where are you staying at the moment?",
       language: EN
     }, {
