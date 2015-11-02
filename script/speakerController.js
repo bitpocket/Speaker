@@ -38,14 +38,18 @@ function speakerContrller($scope) {
   }];
 
   $scope.selectedLanguages = {};
+
+  function selectPhrases(phrases, language) {
+    $scope.phrases = _.filter(phrases, function(p) {
+      return p.language === language.code;
+    });
+  }
   $scope.toogleLanguage = function(language) {
     $scope.selectedLanguages = {};
     $scope.selectedLanguages[language.code] = true;
     $scope.selectedLanguage = language;
 
-    $scope.phrases = _.filter($scope.allPhrases, function(p) {
-      return p.language === $scope.selectedLanguage.code;
-    });
+    selectPhrases($scope.allPhrases, $scope.selectedLanguage);
   };
 
   $scope.isLanguageSelected = function(language) {
@@ -139,10 +143,12 @@ function speakerContrller($scope) {
   function speak(phrase, callBack) {
     $scope.recogizedPhrase = 'listen ...';
     var u = new SpeechSynthesisUtterance();
-    var voices = window.speechSynthesis.getVoices();
-    u.voice = voices.filter(function(voice) {
-      return voice.name == 'Google UK English Male';
-    })[0];
+    if (phrase.language === EN) {
+      var voices = window.speechSynthesis.getVoices();
+      u.voice = voices.filter(function(voice) {
+        return voice.name == 'Google UK English Male';
+      })[0];
+    }
     u.text = phrase.text;
     u.lang = phrase.language;
     u.rate = 1.0;
@@ -182,52 +188,104 @@ function speakerContrller($scope) {
     return $scope.recognizing;
   };
 
-  var recognition = null,
-    listenInit = function() {
-      if ('webkitSpeechRecognition' in window) {
+  var recognition = null;
+  var listenInit = function() {
+    if ('webkitSpeechRecognition' in window) {
 
-        recognition = new webkitSpeechRecognition();
-        recognition.continuous = false;
-        recognition.interimResults = true;
-        recognition.lang = 'en-US';
+      recognition = new webkitSpeechRecognition();
+      recognition.continuous = false;
+      recognition.interimResults = true;
+      //recognition.lang = 'en-US';
 
-        recognition.onstart = function() {
-          $scope.recognizing = true;
-          $scope.$apply();
-        };
-        recognition.onerror = function(event) {
-          $scope.recogizedPhrase = "There was a recognition error...";
-          $scope.$apply();
-        };
-        recognition.onend = function() {
-          $scope.recognizing = false;
-          $scope.$apply();
-        };
-        recognition.onresult = function(event) {
-          var interimTranscript = '';
-          // Assemble the transcript from the array of results
-          for (var i = event.resultIndex; i < event.results.length; ++i) {
-            var confid = event.results[i][0].confidence,
-              confidFix = parseFloat(Math.round(confid * 100) / 100).toFixed(2);
+      recognition.onstart = function() {
+        $scope.recognizing = true;
+        $scope.$apply();
+      };
+      recognition.onerror = function(event) {
+        $scope.recogizedPhrase = "There was a recognition error...";
+        $scope.$apply();
+      };
+      recognition.onend = function() {
+        $scope.recognizing = false;
+        $scope.$apply();
+      };
+      recognition.onresult = function(event) {
+        var interimTranscript = '';
+        // Assemble the transcript from the array of results
+        for (var i = event.resultIndex; i < event.results.length; ++i) {
+          var confid = event.results[i][0].confidence,
+            confidFix = parseFloat(Math.round(confid * 100) / 100).toFixed(2);
 
-            if (event.results[i].isFinal) {
-              $scope.recogizedPhrase = event.results[i][0].transcript + ' (' + confidFix + ')';
-              recognition.stop();
-              $scope.recognizing = false;
-              console.log($scope.recogizedPhrase);
-              $scope.$apply();
-            } else {
-              $scope.recogizedPhrase = event.results[i][0].transcript + ' (' + confidFix + ')';
-              console.log($scope.recogizedPhrase);
-              $scope.$apply();
-            }
+          if (event.results[i].isFinal) {
+            $scope.recogizedPhrase = event.results[i][0].transcript + ' (' + confidFix + ')';
+            recognition.stop();
+            $scope.recognizing = false;
+            console.log($scope.recogizedPhrase);
+            $scope.$apply();
+          } else {
+            $scope.recogizedPhrase = event.results[i][0].transcript + ' (' + confidFix + ')';
+            console.log($scope.recogizedPhrase);
+            $scope.$apply();
           }
-        };
-      }
+        }
+      };
     }
+  }
+
+  $scope.leftMenu = [{
+    id: 'LEARN',
+    name: 'LEARN',
+    enabled: true
+  }, {
+    id: 'TEST',
+    name: 'TEST',
+    enabled: false
+  }, {
+    id: 'COMPOSE',
+    name: 'COMPOSE',
+    enabled: true
+  }];
+
+  $scope.selectedLeftMenuId = '';
+  $scope.toogleLeftMenu = function(menuElement) {
+    if (menuElement.enabled) {
+      $scope.selectedLeftMenuId = menuElement.id;
+    }
+  };
+
+  $scope.isMenuElementSelected = function(menuElement) {
+    return $scope.selectedLeftMenuId === menuElement.id;
+  };
+
+  $scope.isLearnMode = function() {
+    return $scope.selectedLeftMenuId === 'LEARN';
+  }
+
+  $scope.isComposeMode = function() {
+    return $scope.selectedLeftMenuId === 'COMPOSE';
+  }
+
+  $scope.addingOnEnter = function(event) {
+    if (event.keyCode == 13) {
+      $scope.allPhrases.unshift({
+        text: $scope.phraseToAdd,
+        language: $scope.selectedLanguage.code
+      });
+      $scope.phraseToAdd = '';
+      selectPhrases($scope.allPhrases, $scope.selectedLanguage);
+      return false;
+    } else {
+      return true;
+    }
+  }
 
   function Init() {
     $scope.toogleLanguage($scope.languages[1]);
+    $scope.toogleLeftMenu($scope.leftMenu[0]);
+
+    //var myDataRef = new Firebase('https://wvl3vmksh2x.firebaseio-demo.com/');
+    //myDataRef.set('User ' + name + ' says ' + text);
+
     listenInit();
   }
 

@@ -35,6 +35,7 @@ box {
   width: 60px;
 }
 .phrase-selected,
+.menu-element-selected,
 .language-selected {
   color: white;
   background-color: $ColorSelected;
@@ -70,6 +71,7 @@ box {
 }
 .menu-disabled {
   color: $ColorSelected;
+  cursor: default;
 }
 .phrases {
   @extend .languages;

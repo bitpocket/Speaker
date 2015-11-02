@@ -30,6 +30,7 @@ box {
   width: 60px; }
 
 .phrase-selected,
+.menu-element-selected,
 .language-selected {
   color: white;
   background-color: #979797;
@@ -55,7 +56,8 @@ box {
   margin: 0 auto; }
 
 .menu-disabled {
-  color: #979797; }
+  color: #979797;
+  cursor: default; }
 
 .phrases {
   font-size: 150%;

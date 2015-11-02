@@ -8,6 +8,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+  <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css">
   <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine">
@@ -61,9 +62,13 @@
 
     <div id="second-row" class="row" ng-cloak>
       <div class="col-md-3 box side-menu-left">
-        <div class="menu-item disabled">LEARN</div>
-        <div class="menu-item disabled">TEST</div>
-        <div class="menu-item disabled">COMPOSE</div>
+        <div
+          ng-repeat="menuElement in leftMenu"
+          class="menu-item"
+          ng-class="{'disabled': !menuElement.enabled, 'menu-element-selected': isMenuElementSelected(menuElement)}"
+          ng-click="toogleLeftMenu(menuElement)">
+          {{menuElement.name}}
+        </div>
       </div>
 
       <div class="col-md-6 box">
@@ -90,7 +95,10 @@
       </div>
 
       <div class="col-md-6 box">
-        <div class="phrases">
+
+        <div
+          class="phrases"
+          ng-show="isLearnMode()">
           <div class="recogized-phrase">
             {{recogizedPhrase}}
           </div>
@@ -98,6 +106,23 @@
             {{phrase.text}}
           </div>
         </div>
+
+        <div class="phrases"
+          ng-show="isComposeMode()">
+
+          <textarea class="phrase" ng-keypress=addingOnEnter($event) ng-model="phraseToAdd" placeholder="add and press enter ...">
+          </textarea>
+
+          <!-- <div class="recogized-phrase">
+            <input ng-model=phraseToAdd>
+          </div> -->
+
+          <div ng-repeat="phrase in phrases">
+            <textarea class="phrase" ng-model="phrase.text">
+            </textarea>
+          </div>
+        </div>
+
       </div>
 
       <div class="col-md-3 box">
