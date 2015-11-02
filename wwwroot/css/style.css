@@ -13,13 +13,13 @@ box {
   position: relative;
   top: -60px; }
 
-.disable-select, .languages, .side-menu-left, .side-menu-right, .recogized-phrase, .phrases, .language {
+.disable-select, .languages, .side-menu-left, .side-menu-right, .phrases, .language {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none; }
 
-.languages, .side-menu-left, .side-menu-right, .recogized-phrase, .phrases {
+.languages, .side-menu-left, .side-menu-right, .phrases {
   font-family: 'Open Sans', sans-serif;
   font-size: 290%;
   display: inline;
@@ -32,17 +32,18 @@ box {
 .phrase-selected,
 .language-selected {
   color: white;
-  background-color: lightgray; }
+  background-color: #979797;
+  box-shadow: 0 8px 19px -2px #888 !important; }
 
 .phrase-selected {
   font-size: 100%; }
 
 ::selection {
-  background: lightgray;
+  background: #979797;
   /* WebKit/Blink Browsers */ }
 
 ::-moz-selection {
-  background: lightgray;
+  background: #979797;
   /* Gecko Browsers */ }
 
 .right {
@@ -54,25 +55,28 @@ box {
   margin: 0 auto; }
 
 .menu-disabled {
-  color: lightgray; }
-
-.recogized-phrase {
-  width: 450px;
-  position: relative;
-  top: -160px;
-  font-size: 150%;
-  background-color: aliceblue; }
-
-.speech-recognizing {
-  border-color: brown; }
+  color: #979797; }
 
 .phrases {
   font-size: 150%;
   position: relative;
-  top: -160px; }
+  top: -160px;
+  left: 55px; }
 
-.phrase {
-  width: 450px; }
+.phrase, .recogized-phrase {
+  width: 450px;
+  padding: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0 5px 12px -7px #888; }
+
+.recogized-phrase {
+  min-height: 4em;
+  cursor: default;
+  border: #979797;
+  border-style: dashed; }
+
+.disabled {
+  color: #979797; }
 
 @media (max-width: 991px) {
   .side-menu-left,

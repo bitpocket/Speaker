@@ -1,26 +1,26 @@
 @import url(https://fonts.googleapis.com/css?family=Amatic+SC);
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
+$ColorSelected: #979797;
 
-$ColorSelected: lightgray;
 // just for develop
 box {
-    border-style: solid;
-    border-width: 1px;
-    border-color: black;
+  border-style: solid;
+  border-width: 1px;
+  border-color: black;
 }
 .big-title {
   font-family: 'Amatic SC';
   font-size: 1650%;
 }
 #second-row {
-    position: relative;
-    top: -60px;
+  position: relative;
+  top: -60px;
 }
 .disable-select {
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 .languages {
   @extend .disable-select;
@@ -29,24 +29,23 @@ box {
   display: inline;
   cursor: pointer;
 }
-
-.language  {
-    @extend .disable-select;
-    display: inline;
-    width: 60px;
+.language {
+  @extend .disable-select;
+  display: inline;
+  width: 60px;
 }
 .phrase-selected,
 .language-selected {
   color: white;
   background-color: $ColorSelected;
+  box-shadow: 0 8px 19px -2px #888 !important;
 }
-
 .phrase-selected {
-    font-size: 100%;
+  font-size: 100%;
 }
-
-::selection {
-    background: lightgray; /* WebKit/Blink Browsers */
+ ::selection {
+  background: $ColorSelected;
+  /* WebKit/Blink Browsers */
 }
  ::-moz-selection {
   background: $ColorSelected;
@@ -68,68 +67,59 @@ box {
 }
 .menu-item {
 
-.menu-item {
-
 }
 .menu-disabled {
   color: $ColorSelected;
 }
-.recogized-phrase {
+.phrases {
   @extend .languages;
-  width: 450px;
+  font-size: 150%;
   position: relative;
   top: -160px;
-
-.recogized-phrase {
-    @extend .languages;
-    width: 450px;
-    position: relative;
-    top: -160px;
-    font-size: 150%;
-    //border-style: solid;
-    //border-width: 2px;
-    //border-color: black;
-    background-color: aliceblue;
-}
-.speech-recognizing {
-  border-color: brown;
-}
-.phrases {
-    @extend .languages;
-    font-size: 150%;
-    position: relative;
-    top: -160px;
+  left: 55px;
 }
 .phrase {
-    width: 450px;
+  width: 450px;
+  padding: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0 5px 12px -7px #888;
+}
+.recogized-phrase {
+  @extend .phrase;
+  min-height: 4em;
+  cursor: default;
+  border: $ColorSelected;
+  border-style: dashed;
+}
+.disabled {
+  color: $ColorSelected;
 }
 $screen-lg-min: 992px;
 $screen-sm-max: $screen-lg-min - 1;
 
 // tablets
 @media (max-width: $screen-sm-max) {
-    .side-menu-left,
-    .side-menu-right {
-        text-align: center ;
-    }
-    .menu-item {
-        display: inline;
-    }
-    .phrases,
-    .recogized-phrase {
-        top: -50px;
-    }
+  .side-menu-left,
+  .side-menu-right {
+    text-align: center;
+  }
+  .menu-item {
+    display: inline;
+  }
+  .phrases,
+  .recogized-phrase {
+    top: -50px;
+  }
 }
 
 //desktop
 @media (min-width: $screen-lg-min) {
-    .side-menu-right {
-        position: absolute;
-        right: 0px;
-    }
-
-    .side-menu-left,
-    .side-menu-right {
-        top: -116px;
-    }
+  .side-menu-right {
+    position: absolute;
+    right: 0;
+  }
+  .side-menu-left,
+  .side-menu-right {
+    top: -116px;
+  }
 }

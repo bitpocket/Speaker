@@ -3,7 +3,7 @@ angular.module('app', [])
 
 function speakerContrller($scope) {
   var CS = 'cs-CS',
-    EN = 'en-US',
+    EN = 'en-GB',
     ES = 'es-ES',
     DE = 'de-DE',
     IT = 'it-IT',
@@ -55,6 +55,33 @@ function speakerContrller($scope) {
   $scope.phrases = [];
 
   $scope.allPhrases = [{
+      text: "The show lets us see the very familiar through fresh eyes.",
+      language: EN
+    }, {
+      text: "The show taps into something that has been recurring theme in my life.",
+      language: EN
+    }, {
+      text: "I was quit excited, actually, genuinely.",
+      language: EN
+    }, {
+      text: "I have maybe oppened a bonnet couple of times.",
+      language: EN
+    }, {
+      text: "Guests reaction vary from genuine enthisiasm, to absolute loathing: 'I couldn't bear it'",
+      language: EN
+    }, {
+      text: "He tried changing baby's nappy and awarded the experience a maximum ten out of ten.",
+      language: EN
+    }, {
+      text: "The pain of tottering around in high heels.",
+      language: EN
+    }, {
+      text: "The programmer's appeal lies in his charm and humor.",
+      language: EN
+    }, {
+      text: "You want to refactor line-of-business (LOB) application to make it more robust and scalable as well as to increase performance.",
+      language: EN
+    }, {
       text: "... having tap-dancing lessons, wearing extremely high heels.", //wysokie obcasy
       language: EN
     }, {
@@ -109,22 +136,13 @@ function speakerContrller($scope) {
 
   ];
 
-
-
-
-  // $scope.allPhrases = [
-  //     {   text: "I'd just like a word with you, if I might.",
-  //         language: EN },
-  //     {   text: "God always had the final word.",
-  //         language: EN },
-  //     {   text: "Dass ein eigenes Zuhause durch nichts zu ersetzen ist.",
-  //         language: DE },
-  //     {   text: "wiadereczko z wodą",
-  //         language: PL }
-  // ];
-
   function speak(phrase, callBack) {
+    $scope.recogizedPhrase = 'listen ...';
     var u = new SpeechSynthesisUtterance();
+    var voices = window.speechSynthesis.getVoices();
+    u.voice = voices.filter(function(voice) {
+      return voice.name == 'Google UK English Male';
+    })[0];
     u.text = phrase.text;
     u.lang = phrase.language;
     u.rate = 1.0;
@@ -137,6 +155,7 @@ function speakerContrller($scope) {
       recognition.stop();
       $scope.recognizing = false;
     } else {
+      $scope.recogizedPhrase = 'say it ...';
       recognition.lang = phrase.language;
       recognition.start();
     }
@@ -157,10 +176,7 @@ function speakerContrller($scope) {
   };
 
   $scope.recognizing = false;
-  $scope.recogizedPhrase = '';
-  $scope.getRecogizedPhrase = function() {
-    return $scope.recogizedPhrase || 'Say it ...';
-  };
+  $scope.recogizedPhrase = 'click phrase, listen, and repeat ...';
 
   $scope.isRecognizing = function() {
     return $scope.recognizing;
