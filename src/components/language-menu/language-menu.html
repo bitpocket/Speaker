@@ -1,7 +1,0 @@
-<div class="languages" *ng-for="#language of languages; #i=index">
-  <div class="language"
-    (click)="toogleLanguage(language.id)"
-    [ng-class]="{'language-selected': isLanguageSelected(language.id)}">
-    {{language.label}}
-  </div>
-</div>

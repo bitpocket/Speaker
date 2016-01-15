@@ -1,0 +1,1 @@
+{"version":3,"file":"settingsService.js","sourceRoot":"","sources":["settingsService.ts"],"names":["SettingsService","SettingsService.constructor","SettingsService.getDefaultLanguageId"],"mappings":";;;;;;;;;YAEA;gBAAAA;gBAIAC,CAACA;gBAHQD,8CAAoBA,GAA3BA;oBACEE,MAAMA,CAACA,cAAEA,CAACA;gBACZA,CAACA;gBACHF,sBAACA;YAADA,CAACA,AAJD,IAIC;YAJD,6CAIC,CAAA"}

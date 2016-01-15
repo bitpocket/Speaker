@@ -1,0 +1,1 @@
+{"version":3,"file":"phraseService.js","sourceRoot":"","sources":["phraseService.ts"],"names":["PhraseService","PhraseService.constructor","PhraseService.toogleLanguage"],"mappings":";;;;;YAGA;gBAAAA;gBAIAC,CAACA;gBAHCD,sCAAcA,GAAdA,UAAeA,UAAkBA;gBAEjCE,CAACA;gBACHF,oBAACA;YAADA,CAACA,AAJD,IAIC;YAJD,yCAIC,CAAA"}
