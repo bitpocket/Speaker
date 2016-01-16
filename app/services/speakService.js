@@ -8,7 +8,6 @@ System.register([], function(exports_1) {
                     this.recognition = null;
                     this.recognizing = false;
                     this.recogizedPhrase = '';
-                    this.listenInit();
                 }
                 SpeakService.prototype.speak = function (phrase, CallBackScope) {
                     this.CallBackScope = CallBackScope;
@@ -20,25 +19,6 @@ System.register([], function(exports_1) {
                         that.listen(phrase);
                     };
                     speechSynthesis.speak(u);
-                    //recognizeCallback();
-                    //
-                    //this.recogizedPhrase = 'first test';
-                    //console.log('first test');
-                    // var that = this;
-                    // window.setTimeout(function() {
-                    //    //this.recogizedPhrase = 'next test';
-                    //    //console.log('next test');
-                    //   // detectChanges();
-                    //     that.CallBackScope.testcallback(777);
-                    //  }, 10);
-                    //
-                    // window.setTimeout(function() {
-                    // //  Zone.bindPromiseFn();
-                    //    this.recogizedPhrase = 'next test';
-                    //    console.log('next test');
-                    //   // detectChanges();
-                    //   // recognizeCallback()
-                    //  }, 10);
                 };
                 SpeakService.prototype.listen = function (phrase) {
                     if (this.isRecognizing()) {
@@ -57,7 +37,8 @@ System.register([], function(exports_1) {
                     return this.recogizedPhrase || 'Say it ...';
                 };
                 ;
-                SpeakService.prototype.listenInit = function () {
+                SpeakService.prototype.listenInit = function (zone, CallBackScope) {
+                    this.CallBackScope = CallBackScope;
                     if ('webkitSpeechRecognition' in window) {
                         this.recognition = new webkitSpeechRecognition();
                         this.recognition.continuous = false;
@@ -73,27 +54,26 @@ System.register([], function(exports_1) {
                             that.recognizing = false;
                         };
                         this.recognition.onresult = function (event) {
-                            var interimTranscript = '';
-                            // Assemble the transcript from the array of results
-                            for (var i = event.resultIndex; i < event.results.length; ++i) {
-                                var confid = event.results[i][0].confidence, confidFix = parseFloat((Math.round(confid * 100) / 100).toFixed()).toFixed(2);
-                                if (event.results[i].isFinal) {
-                                    that.recogizedPhrase = event.results[i][0].transcript + ' (' + confidFix + ')';
-                                    that.recognition.stop();
-                                    that.recognizing = false;
-                                    console.log(that.recogizedPhrase);
+                            zone.run(function () {
+                                var interimTranscript = '';
+                                // Assemble the transcript from the array of results
+                                for (var i = event.resultIndex; i < event.results.length; ++i) {
+                                    var confid = event.results[i][0].confidence, confidFix = parseFloat((Math.round(confid * 100) / 100).toFixed()).toFixed(2);
+                                    if (event.results[i].isFinal) {
+                                        that.recogizedPhrase = event.results[i][0].transcript + ' (' + confidFix + ')';
+                                        that.recognition.stop();
+                                        that.recognizing = false;
+                                        console.log(that.recogizedPhrase);
+                                    }
+                                    else {
+                                        that.recogizedPhrase = event.results[i][0].transcript + ' (' + confidFix + ')';
+                                        console.log(that.recogizedPhrase);
+                                    }
+                                    if (that.CallBackScope && confid > 0.1) {
+                                        that.CallBackScope.incommingPhraseCallback(that.recogizedPhrase);
+                                    }
                                 }
-                                else {
-                                    that.recogizedPhrase = event.results[i][0].transcript + ' (' + confidFix + ')';
-                                    console.log(that.recogizedPhrase);
-                                }
-                                if (that.CallBackScope) {
-                                    //that.CallBackScope._increaseProgress2();
-                                    //that.CallBackScope.testcallback(that.CallBackScope._recogizedPhrase+1);
-                                    //that.CallBackScope._recogizedPhrase += 1;
-                                    that.CallBackScope.testcallback(888); // (that.recogizedPhrase);
-                                }
-                            }
+                            });
                         };
                     }
                 };

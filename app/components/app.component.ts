@@ -90,29 +90,4 @@ export class AppComponent {
       };
     }
   }
-
-
-
-  //-----------------
-
-  // public someVariable = 'sdf';
-  // public counter = 0;
-  //
-  // timerFunction(context) {
-  //   context.counter++;
-  //   context.someVariable = context.counter.toString();
-  //   setTimeout(() => {
-  //     context.timerFunction(context)
-  //   }, 500);
-  // }
-  //
-  // onClick() {
-  //   var that = this;
-  //   setTimeout(() => {
-  //     that.timerFunction(that)
-  //   }, 500);
-  // }
-
-
-
 }

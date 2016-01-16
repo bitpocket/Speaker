@@ -15,7 +15,7 @@ export class LanguageService {
     return this.selectedLanguages[languageId.toString()];
   }
 
-  getSelectedLanguage() {
+  public getSelectedLanguage() {
     return this.selectedLanguageId;
   }
 }

@@ -5,8 +5,7 @@ export class Store {
   private allPhrases: Phrase[];
 
   public loadPhrases(): Phrase[] {
-    var res: Phrase[] = this.getDefaultPhrases();
-    return res;
+    return this.defaultPhrases;
   }
 
   public savePhrases(phrases: Phrase[]) {
@@ -21,36 +20,32 @@ export class Store {
   }
 
   public getAllPhrasesByLanguage(languageId: String): Phrase[] {
-    var allPhrases: Phrase[] = this.getAllPhrases(),
-        res = allPhrases.filter((item) => item.languageId === languageId);
-    return res;
+    var allPhrases: Phrase[] = this.getAllPhrases();
+    return allPhrases;
   }
 
-  public getDefaultPhrases(): Phrase[] {
-    var res: Phrase[] = [
-      {
-        text: "I'd just like a word with you, if I might.",
-        languageId: EN,
-        uuid: "1"
-      },
-      {
-        text: "God always had the final word.",
-        languageId: EN,
-        uuid: "2"
-      },
-      {
-        text: "Dass ein eigenes Zuhause durch nichts zu ersetzen ist.",
-        languageId: DE,
-        uuid: "3"
-      },
-      {
-        text: "wiadereczko z wodą",
-        languageId: PL,
-        uuid: "4"
-      }
-    ];
-    return res;
-  }
+  private defaultPhrases: Phrase[] = [
+    {
+      text: "I'd just like a word with you, if I might.",
+      languageId: EN,
+      uuid: "1"
+    },
+    {
+      text: "God always had the final word.",
+      languageId: EN,
+      uuid: "2"
+    },
+    {
+      text: "Dass ein eigenes Zuhause durch nichts zu ersetzen ist.",
+      languageId: DE,
+      uuid: "3"
+    },
+    {
+      text: "wiadereczko z wodą",
+      languageId: PL,
+      uuid: "4"
+    }
+  ];
 
   public value: string = '';
 

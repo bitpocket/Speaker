@@ -9,27 +9,7 @@ System.register(['../models/languages'], function(exports_1) {
         execute: function() {
             Store = (function () {
                 function Store() {
-                    this.value = '';
-                }
-                Store.prototype.loadPhrases = function () {
-                    var res = this.getDefaultPhrases();
-                    return res;
-                };
-                Store.prototype.savePhrases = function (phrases) {
-                    // TODO:
-                };
-                Store.prototype.getAllPhrases = function () {
-                    if (!this.allPhrases) {
-                        this.allPhrases = this.loadPhrases();
-                    }
-                    return this.allPhrases;
-                };
-                Store.prototype.getAllPhrasesByLanguage = function (languageId) {
-                    var allPhrases = this.getAllPhrases(), res = allPhrases.filter(function (item) { return item.languageId === languageId; });
-                    return res;
-                };
-                Store.prototype.getDefaultPhrases = function () {
-                    var res = [
+                    this.defaultPhrases = [
                         {
                             text: "I'd just like a word with you, if I might.",
                             languageId: languages_1.EN,
@@ -51,7 +31,23 @@ System.register(['../models/languages'], function(exports_1) {
                             uuid: "4"
                         }
                     ];
-                    return res;
+                    this.value = '';
+                }
+                Store.prototype.loadPhrases = function () {
+                    return this.defaultPhrases;
+                };
+                Store.prototype.savePhrases = function (phrases) {
+                    // TODO:
+                };
+                Store.prototype.getAllPhrases = function () {
+                    if (!this.allPhrases) {
+                        this.allPhrases = this.loadPhrases();
+                    }
+                    return this.allPhrases;
+                };
+                Store.prototype.getAllPhrasesByLanguage = function (languageId) {
+                    var allPhrases = this.getAllPhrases();
+                    return allPhrases;
                 };
                 Store.prototype.getValue = function () {
                     return this.value;

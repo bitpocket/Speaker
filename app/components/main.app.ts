@@ -1,13 +1,12 @@
 import {Component} from 'angular2/core';
 
-import {TopHeader} from '../components//top.header';
-// import {Menu} from '../menu/menu';
-// import {MainContent} from '../main-content/main-content';
+import {TopHeader} from '../components/top.header';
+import {Menu} from '../components/menu';
+import {MainContent} from '../components/mainContent';
 
 @Component({
   selector: 'my-app',
   template: `
-  Main
   <div class="container">
     <top-header></top-header>
     <menu></menu>
@@ -15,9 +14,9 @@ import {TopHeader} from '../components//top.header';
   </div>
     `,
     directives: [
-      TopHeader
-      // Menu,
-      // MainContent
+      TopHeader,
+      Menu,
+      MainContent
     ]
 })
 
