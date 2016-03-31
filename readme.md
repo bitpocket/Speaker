@@ -2,6 +2,12 @@
 - core requirements graph
 - possible app grow direction
 - architecture
-- graphics
+- design
+  - Monospaced font
+    - Curier
+    - Droid Sans Mono (https://www.typingclub.com/)
+    - Inconsolata
+    - Nova Mono
+    - CutiveMono
 - documentation
 - implementation on real server
