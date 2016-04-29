@@ -1,118 +1,30 @@
-@import url(https://fonts.googleapis.com/css?family=Amatic+SC);
-$ColorSelected: #979797;
-
-#working-area {
-    min-height: 300px;
+@import url(https://fonts.googleapis.com/css?family=Roboto+Mono);
+#learnig-area {
+    min-height: 400px;
 }
-
+#searching-area {
+    font-size: 20px;
+}
+#search-input {
+    min-width: 600px;
+}
+.original-sentence,
+.parsed-sentence {
+    font-family: 'Roboto Mono', sans-serif;
+    margin-left: 100px;
+    margin-top: 50px;
+    font-size: 20px;
+}
 // just for develop
-box {
+.box {
     border-style: solid;
     border-width: 1px;
-    border-color: black;
+    border-color: #E1E1E1;
+    background-color: #F0F0F0;
 }
 .disable-select {
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-}
-.languages {
-    @extend .disable-select;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 290%;
-    display: inline;
-    cursor: pointer;
-}
-.language {
-    @extend .disable-select;
-    display: inline;
-    width: 60px;
-}
-.language-selected,
-.menu-element-selected,
-.phrase-selected {
-    color: white;
-    background-color: $ColorSelected;
-    box-shadow: 0 8px 19px -2px #888 !important;
-}
-.phrase-selected {
-    font-size: 100%;
-}
-::selection {
-    background: $ColorSelected;
-    /* WebKit/Blink Browsers */
-}
-::-moz-selection {
-    background: $ColorSelected;
-    /* Gecko Browsers */
-}
-.right {
-    position: absolute;
-    right: 0;
-}
-.center {
-    width: 50%;
-    margin: 0 auto;
-}
-.side-menu-left {
-    @extend .languages;
-}
-.side-menu-right {
-    @extend .languages;
-}
-.menu-item {}
-.menu-disabled {
-    color: $ColorSelected;
-    cursor: default;
-}
-.phrases {
-    @extend .languages;
-    font-size: 150%;
-    position: relative;
-    top: -160px;
-    left: 55px;
-}
-.phrase {
-    width: 450px;
-    padding: 10px;
-    margin-bottom: 10px;
-    box-shadow: 0 5px 12px -7px #888;
-}
-.recogized-phrase {
-    @extend .phrase;
-    min-height: 4em;
-    cursor: default;
-    border: $ColorSelected;
-    border-style: dashed;
-}
-.disabled {
-    color: $ColorSelected;
-}
-$screen-lg-min: 992px;
-$screen-sm-max: $screen-lg-min - 1;
-// tablets
-@media (max-width: $screen-sm-max) {
-    .side-menu-left,
-    .side-menu-right {
-        text-align: center;
-    }
-    .menu-item {
-        display: inline;
-    }
-    .phrases,
-    .recogized-phrase {
-        top: -50px;
-    }
-}
-//desktop
-@media (min-width: $screen-lg-min) {
-    .side-menu-right {
-        position: absolute;
-        right: 0;
-    }
-    .side-menu-left,
-    .side-menu-right {
-        top: -116px;
-    }
 }

@@ -8,7 +8,6 @@
 	mainController.$inject = ["$scope"];
 
 	function mainController($scope) {
-		$scope.message = "this is a mainController";
 	}
 
 })();

@@ -1,13 +1,36 @@
 <section>
   <div class="container">
-    <div class="row">
-      one
+    <div id="learnig-area" class="row">
+      <h4>Learn</h4>
+
+      <div class="original-sentence" ng-show="selectedSentence">
+        <a href=" " class="glyphicon glyphicon-play" ng-click="playSentence($event, selectedSentence)"></a>
+        {{selectedSentence.text}}
+      </div>
+
+      <div class="parsed-sentence" ng-show="selectedSentence">
+        <a href=" " class="glyphicon glyphicon-record" ng-click="startSpeechRecognition($event)"></a>
+        {{parsedSentence.text}}
+      </div>
+
     </div>
-    <div class="row">
-      one
+    <div id="searching-area" class="row">
+      <div class="pull-right">
+        <h2>Add a sentence</h2>
+        <input id="search-input" placeholder="sentence" type="text" ng-model="searchingPhrase" ng-keypress="inputKeyPressed($event, searchingPhrase)">
+        <a href="" class="glyphicon glyphicon-plus" ng-click="addSentence($event, searchingPhrase)"></a>
+      </div>
     </div>
-    <div class="row">
-      one
+    <div id=" sentences-list-area " class="row ">
+      <h4>Choose a sentence</h4>
+      <div ng-repeat="sentence in sentences track by $index ">
+        <div class="sentence ">
+          <a href=" " class="glyphicon glyphicon-remove" ng-click="removeSentence($event, sentence)"></a>
+          <a href=" " ng-click="selectSentence($event, sentence) ">
+                {{sentence.text}}
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
