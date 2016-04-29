@@ -4,7 +4,8 @@ Enter, Listen, Repeat and enjoy.
 Learn words in context by using google speech recognition API.
 
 # Dev requirements
-- install [nodejs](https://nodejs.org/en/) for Node Package Manager (npm)
+- [nodejs](https://nodejs.org/en/) for Node Package Manager (npm)
+- [python 3.x](https://www.python.org/downloads/) needed for gulp
 - install all project module
 ```
 > {project folder} npm i

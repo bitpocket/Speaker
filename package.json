@@ -1,14 +1,14 @@
 {
   "name": "Speaker",
   "version": "0.4.0",
-  "dependencies": {
-  },
+  "dependencies": {},
   "scripts": {
     "start": "live-server --open="
   },
   "devDependencies": {
-    "gulp-ruby-sass": "^2.0.4",
-    "gulp-sass": "^2.0.4",
+    "gulp": "^3.9.1",
+    "gulp-sass": "2.0.4",
+    "gulp-ruby-sass": "^2.0.6",
     "gulp-tsc": "^1.1.1",
     "live-server": "^1.0.0"
   }

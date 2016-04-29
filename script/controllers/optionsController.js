@@ -1,12 +1,14 @@
 (function () {
-  angular
-  .module("speakerApp")
-  .controller('optionsController', optionsController);
+	"use strict";
 
-  optionsController.$inject = ["$scope"];
+	angular
+		.module("speakerApp")
+		.controller('optionsController', optionsController);
 
-  function optionsController() {
+	optionsController.$inject = ["$scope"];
 
-  }
+	function optionsController($scope) {
+		$scope.message = "options";
+	}
 
 })();
