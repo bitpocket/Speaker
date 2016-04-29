@@ -14,7 +14,7 @@
   <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine">
   <link rel="stylesheet" type="text/css" href="wwwroot/css/style.css">
 
-  <title>Speaker V 0.1.3</title>
+  <title>Speaker Version 0.0.4</title>
 </head>
 
 <body>
@@ -22,7 +22,7 @@
   <script>
     dataLayer = [{
       title: 'Speaker',
-      version: '1.0.1'
+      version: '0.0.4'
     }];
   </script>
 
@@ -48,90 +48,26 @@
   </script>
   <!-- End Google Tag Manager -->
 
-
-  <div ng-app="app" ng-controller="speakerContrller" class="container">
-    <div class="row">
-      <div class="col-md-3 box">
-      </div>
-      <div class="col-md-6 box">
-        <center class="big-title">SPEAKER</center>
-      </div>
-      <div class="col-md-3 box">
-      </div>
-    </div>
-
-    <div id="second-row" class="row" ng-cloak>
-      <div class="col-md-3 box side-menu-left">
-        <div
-          ng-repeat="menuElement in leftMenu"
-          class="menu-item"
-          ng-class="{'disabled': !menuElement.enabled, 'menu-element-selected': isMenuElementSelected(menuElement)}"
-          ng-click="toogleLeftMenu(menuElement)">
-          {{menuElement.name}}
+  <div ng-app="speakerApp" ng-controller="speakerContrller" class="container">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3">
+          <ul class="nav">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#options">Options </a></li>
+          </ul>
         </div>
-      </div>
-
-      <div class="col-md-6 box">
-        <center>
-          <div class="languages" ng-repeat="language in languages">
-            <div class="language" ng-click="toogleLanguage(language)" ng-class="{'language-selected': isLanguageSelected(language)}">
-              {{language.label}}
-            </div>
-          </div>
-        </center>
-      </div>
-
-      <div class="col-md-3 box">
-        <div class="side-menu-right">
-          <div class="menu-item disabled">LOGIN</div>
-          <div class="menu-item disabled">SETUP</div>
-          <div class="menu-item disabled">ABOUT</div>
+        <div class="col-md-9">
+          <div ng-view></div>
         </div>
       </div>
     </div>
-
-    <div class="row">
-      <div class="col-md-3 box">
-      </div>
-
-      <div class="col-md-6 box">
-
-        <div
-          class="phrases"
-          ng-show="isLearnMode()">
-          <div class="recogized-phrase">
-            {{recogizedPhrase}}
-          </div>
-          <div class="phrase" ng-click="tooglePhrase(phrase)" ng-class="{'phrase-selected': isPhraseSelected(phrase)}" ng-repeat="phrase in phrases">
-            {{phrase.text}}
-          </div>
-        </div>
-
-        <div class="phrases"
-          ng-show="isComposeMode()">
-
-          <textarea class="phrase" ng-keypress=addingOnEnter($event) ng-model="phraseToAdd" placeholder="add and press enter ...">
-          </textarea>
-
-          <!-- <div class="recogized-phrase">
-            <input ng-model=phraseToAdd>
-          </div> -->
-
-          <div ng-repeat="phrase in phrases">
-            <textarea class="phrase" ng-model="phrase.text">
-            </textarea>
-          </div>
-        </div>
-
-      </div>
-
-      <div class="col-md-3 box">
-      </div>
-    </div>
-
   </div>
 
-  <script src="script/speakerController.js"></script>
+  <script src="script/speakerApp.js"></script>
+  <script src="script/routing.js"></script>
+  <script src="script/controllers/homeController.js"></script>
+  <script src="script/controllers/optionsController.js"></script>
 </body>
 
 </html>
