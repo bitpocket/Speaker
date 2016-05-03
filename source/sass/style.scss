@@ -1,0 +1,53 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto+Mono);
+#learnig-area {
+  min-height: 400px;
+}
+#searching-area {
+  font-size: 20px;
+}
+#search-input {
+  min-width: 600px;
+}
+.original-sentence,
+.parsed-sentence {
+  font-family: 'Roboto Mono', sans-serif;
+  margin-left: 15px;
+  margin-top: 50px;
+  font-size: 20px;
+  .sentence {
+    display: inline;
+  }
+}
+a.glyphicon:focus,
+a.glyphicon:hover {
+  text-decoration: none;
+}
+.added,
+.removed,
+.mistake,
+.correct,
+.no-change {
+  display: inline-block;
+}
+.mistake {
+  background-color: #FFD0B6;
+}
+.added {
+  background-color: #FFD0B6;// #CCFFB5;
+}
+.removed {
+    background-color: #FFD0B6;
+}
+// just for develop
+.box {
+  border-style: solid;
+  border-width: 1px;
+  border-color: #E1E1E1;
+  background-color: #F0F0F0;
+}
+.disable-select {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}

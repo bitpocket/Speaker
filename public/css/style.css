@@ -11,9 +11,32 @@
 .original-sentence,
 .parsed-sentence {
   font-family: 'Roboto Mono', sans-serif;
-  margin-left: 100px;
+  margin-left: 15px;
   margin-top: 50px;
   font-size: 20px; }
+  .original-sentence .sentence,
+  .parsed-sentence .sentence {
+    display: inline; }
+
+a.glyphicon:focus,
+a.glyphicon:hover {
+  text-decoration: none; }
+
+.added,
+.removed,
+.mistake,
+.correct,
+.no-change {
+  display: inline-block; }
+
+.mistake {
+  background-color: #FFD0B6; }
+
+.added {
+  background-color: #FFD0B6; }
+
+.removed {
+  background-color: #FFD0B6; }
 
 .box {
   border-style: solid;
