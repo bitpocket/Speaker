@@ -1,25 +1,4 @@
-# Speaker
-Enter, Listen, Repeat and enjoy.
+# AngularJS and TypeScript
 
-# Overview
-Learn words in context by using google speech recognition API.
-
-# Dev requirements
-- [nodejs](https://nodejs.org/en/) (use LTS)
-- [python](https://www.python.org/downloads/) needed for gulp
-
-install all project module
-
-```
-> npm i
-```
-
-run gulp
-```
-> gulp
-```
-
-run site localy
-```
->  npm start
-```
+- tutorial
+http://www.developerhandbook.com/typescript/writing-angularjs-1-x-with-typescript/
