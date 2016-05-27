@@ -6,7 +6,7 @@
   "scripts": {
     "tsc": "tsc",
     "tsc:w": "tsc -w",
-    "lite": "lite-server",
+    "lite": "live-server --open=public",
     "gulp": "gulp",
     "start": "concurrent \"npm run tsc:w\" \"npm run gulp\" \"npm run lite\" "
   },
@@ -17,5 +17,8 @@
     "gulp": "^3.9.1",
     "lite-server": "^2.2.0",
     "typescript": "^1.8.10"
+  },
+  "dependencies": {
+    "systemjs": "^0.19.29"
   }
 }

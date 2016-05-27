@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,9 +14,9 @@
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css">
   <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine">
-  <!-- <link rel="stylesheet" type="text/css" href="css/style.css"> -->
+  <link rel="stylesheet" type="text/css" href="css/style.css">
 
-  <title>Speaker Version 0.4.0</title>
+  <title>Speaker Version 0.5.0</title>
 </head>
 
 <body>
@@ -23,7 +24,7 @@
   <script>
     dataLayer = [{
       title: 'Speaker',
-      version: '0.0.4'
+      version: '0.0.5'
     }];
   </script>
 
@@ -63,25 +64,28 @@
           </ul>
         </div>
         {{Name}}
-        <!-- <div class="container">
+        <div class="container">
           <div class="col-md-12">
             <div ng-view></div>
           </div>
-        </div> -->
+        </div>
       </div>
     </div>
   </div>
 
-  <script src="src/scripts/controllers/mainController.js"></script>
-  <!-- <script src="script/controllers/homeController.js"></script> -->
-  <!-- <script src="script/controllers/optionsController.js"></script>
-  <script src="script/services/languages.js"></script>
-  <script src="script/services/sentences.js"></script>
-  <script src="script/services/speech.js"></script>
-  <script src="script/models/utils.js"></script>
-  <script src="script/routes/routes.js"></script>
-  <script src="script/vendor/diff.min.js"></script>
-  <script src="script/models/sentencesDiff.js"></script> -->
+  <script src="scripts/app.js"></script>
+  <script src="scripts/controllers/mainController.js"></script>
+  <script src="scripts/controllers/homeController.js"></script>
+  <script src="scripts/controllers/optionsController.js"></script>
+  <script src="scripts/models/language.js"></script>
+  <script src="scripts/models/languages.js"></script>
+  <script src="scripts/services/sentences.js"></script>
+  <script src="scripts/services/speech.js"></script>
+  <script src="scripts/models/utils.js"></script>
+  <script src="scripts/models/sentence.js"></script>
+  <script src="scripts/routes/routes.js"></script>
+  <script src="scripts/vendor/diff.min.js"></script>
+  <script src="scripts/models/sentencesDiff.js"></script>
 
 </body>
 
