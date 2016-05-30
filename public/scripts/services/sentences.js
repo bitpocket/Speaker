@@ -52,7 +52,6 @@ var Speaker;
         SentencesService.$inject = ["$rootScope"];
         return SentencesService;
     }());
-    Speaker.SentencesService = SentencesService;
     angular
         .module("app")
         .service("sentencesService", SentencesService);

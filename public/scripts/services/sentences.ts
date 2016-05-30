@@ -1,6 +1,13 @@
-module Speaker{
+module Speaker {
 
-  export class SentencesService {
+  export interface SentencesServiceInterface {
+    sentences: Sentence[];
+    load(success, error): void;
+    addSentence(language: Language, text: string): void;
+    removeSentence(sentence): void;
+  }
+
+  class SentencesService implements SentencesServiceInterface {
     static $inject = ["$rootScope"];
     $rootScope;
 
@@ -31,7 +38,7 @@ module Speaker{
       ];
     }
 
-    public removeSentence(sentence) {
+    public removeSentence(sentence): void {
       var index = this.sentences.indexOf(sentence);
       if (index > -1) {
         this.sentences.splice(index, 1);
@@ -41,7 +48,7 @@ module Speaker{
       this.save(undefined, undefined);
     }
 
-    public load(success, error) {
+    public load(success, error): void {
       this.sentences = this.getSentencesFromLocalStorage();
       if (!this.sentences || !this.sentences.length) {
         this.sentences = this.getDefaultSentences();
@@ -51,7 +58,7 @@ module Speaker{
       this.$rootScope.$broadcast("sentencesListChanged");
     }
 
-    public save(success, error) {
+    save(success, error):void {
       this.setSentencesToLocalStorage(this.sentences);
       if (success) success("OK");
     }

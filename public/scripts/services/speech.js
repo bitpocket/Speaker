@@ -107,7 +107,6 @@ var Speaker;
         SpeechService.$inject = ["$rootScope"];
         return SpeechService;
     }());
-    Speaker.SpeechService = SpeechService;
     angular
         .module("app")
         .service("speechService", SpeechService);

@@ -1,6 +1,10 @@
 module Speaker {
 
-  export class SpeechService {
+  export interface SpeechServiceInterface {
+
+  }
+
+  class SpeechService implements SpeechServiceInterface {
     static $inject = ["$rootScope"];
     $rootScope;
     utterance;
