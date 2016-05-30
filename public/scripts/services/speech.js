@@ -5,15 +5,24 @@ var Speaker;
             this.isRecognizing = false;
             this.recogizedPhrase = "say it ...";
             this.recognition = undefined;
+            this.speechStateSpeaking = false;
             this.$rootScope = $rootScope;
             this.init();
             this.listenInit();
         }
-        SpeechService.prototype.startSpeaking = function (phrase) {
-            this.utterance.text = phrase.text;
-            this.utterance.lang = phrase.language;
+        SpeechService.prototype.playStopSentence = function (sentence) {
+            if (this.speechStateSpeaking) {
+                this.cancelSpeaking();
+            }
+            else {
+                this.startSpeaking(sentence);
+            }
+        };
+        SpeechService.prototype.startSpeaking = function (sentence) {
+            this.utterance.text = sentence.text;
+            this.utterance.lang = sentence.language;
             this.utterance.rate = 1.0;
-            if (phrase.language === Speaker.Languages.EN.id) {
+            if (sentence.language === Speaker.Languages.EN.id) {
                 this.utterance.voice = this.voices.filter(function (voice) {
                     return voice.name == 'Google UK English Male';
                 })[0];
@@ -22,24 +31,19 @@ var Speaker;
         };
         ;
         SpeechService.prototype.cancelSpeaking = function () {
-            window.speechSynthesis.cancel();
+            speechSynthesis.cancel();
         };
         ;
-        SpeechService.prototype.startRecongnition = function (phrase) {
+        SpeechService.prototype.startStopSpeechRecongnition = function (sentence) {
             if (this.isRecognizing) {
                 this.recognition.stop();
                 this.isRecognizing = false;
             }
             else {
                 this.recogizedPhrase = "say it ...";
-                this.recognition.lang = phrase.language;
+                this.recognition.lang = sentence.language;
                 this.recognition.start();
             }
-        };
-        ;
-        SpeechService.prototype.stopRecongnition = function () {
-            this.recognition.stop();
-            this.speechRecognitionStateChanged(false, true);
         };
         ;
         SpeechService.prototype.listenInit = function () {
@@ -64,35 +68,33 @@ var Speaker;
                     var interimTranscript = '';
                     // Assemble the transcript from the array of results
                     for (var i = event.resultIndex; i < event.results.length; ++i) {
-                        var confid = event.results[i][0].confidence, confidFix = parseFloat((Math.round(confid * 100) / 100).toString()).toFixed(2);
+                        var confid = event.results[i][0].confidence, confidFix = Speaker.Utils.round(confid, 2);
                         if (event.results[i].isFinal) {
                             that_1.recogizedPhrase = event.results[i][0].transcript;
                             that_1.recognition.stop();
                             that_1.isRecognizing = false;
                             console.log(that_1.recogizedPhrase, confidFix);
                             that_1.speechRecognitionStateChanged(false, true);
-                            that_1.recognizedPhraseChanged(that_1.recogizedPhrase, confidFix);
+                            that_1.recognizedPhraseChanged(that_1.recogizedPhrase, confid);
                         }
                         else {
                             that_1.recogizedPhrase = event.results[i][0].transcript;
                             console.log(that_1.recogizedPhrase, confidFix);
-                            that_1.recognizedPhraseChanged(that_1.recogizedPhrase, confidFix);
+                            that_1.recognizedPhraseChanged(that_1.recogizedPhrase, confid);
                         }
                     }
                 };
             }
         };
         SpeechService.prototype.speechSyntheseStateChanged = function (that) {
+            that.speechStateSpeaking = speechSynthesis.speaking;
             that.$rootScope.$broadcast("speechSyntheseStateChanged", speechSynthesis.speaking, speechSynthesis.paused);
         };
         SpeechService.prototype.speechRecognitionStateChanged = function (started, stopped) {
             this.$rootScope.$broadcast("speechRecognitionStateChanged", started, stopped);
         };
         SpeechService.prototype.recognizedPhraseChanged = function (recogizedPhrase, confidence) {
-            this.$rootScope.$broadcast("recognizedPhraseChanged", {
-                text: recogizedPhrase,
-                confidence: confidence
-            });
+            this.$rootScope.$broadcast("recognizedPhraseChanged", recogizedPhrase, confidence);
         };
         SpeechService.prototype.init = function () {
             if ('speechSynthesis' in window) {
@@ -101,7 +103,7 @@ var Speaker;
                 this.utterance.onstart = function () { that_2.speechSyntheseStateChanged(that_2); };
                 this.utterance.onend = function () { that_2.speechSyntheseStateChanged(that_2); };
                 this.utterance.onpause = function () { that_2.speechSyntheseStateChanged(that_2); };
-                this.voices = window.speechSynthesis.getVoices();
+                this.voices = speechSynthesis.getVoices();
             }
         };
         SpeechService.$inject = ["$rootScope"];
@@ -111,4 +113,4 @@ var Speaker;
         .module("app")
         .service("speechService", SpeechService);
 })(Speaker || (Speaker = {}));
-//# sourceMappingURL=speech.js.map
+//# sourceMappingURL=Speech.js.map

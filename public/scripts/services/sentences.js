@@ -56,4 +56,4 @@ var Speaker;
         .module("app")
         .service("sentencesService", SentencesService);
 })(Speaker || (Speaker = {}));
-//# sourceMappingURL=sentences.js.map
+//# sourceMappingURL=Sentences.js.map

@@ -10,4 +10,4 @@ var Speaker;
         .module("app")
         .controller('mainController', MainController);
 })(Speaker || (Speaker = {}));
-//# sourceMappingURL=mainController.js.map
+//# sourceMappingURL=MainController.js.map

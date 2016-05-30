@@ -15,4 +15,4 @@ var Speaker;
     }());
     Speaker.Languages = Languages;
 })(Speaker || (Speaker = {}));
-//# sourceMappingURL=languages.js.map
+//# sourceMappingURL=Languages.js.map

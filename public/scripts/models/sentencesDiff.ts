@@ -2,17 +2,37 @@
 
 module Speaker {
 
+  declare var JsDiff: any;
+
   export class SentencesDiff {
 
-    static getOnlyAddedDiffs(diff) {
-      return _.filter(diff, function(d) {
+    public static getDiff(originalText: string, parsedText: string, confidence: number): ParsedSentence {
+      let res: ParsedSentence = new ParsedSentence();
+
+      res.originalText = originalText;
+      res.parsedText = parsedText;
+      res.confidence = Utils.round(confidence, 2);
+
+      if (res.originalText && res.parsedText) {
+        res.sentencesDiff = SentencesDiff.diffChars(res.originalText, res.parsedText);
+      }
+
+      let editDistance: number = this.getEditDistance(res.originalText, res.parsedText);
+      res.editDistance = (1 - editDistance / res.originalText.length);
+      res.totalResultRounded = Utils.round(res.editDistance, 2);
+
+      return res;
+    }
+
+    static getOnlyAddedDiffs(diff: any[]): any[] {
+      return _.filter(diff, (d: any) => {
         return !d.removed;
       });
     }
 
     static splitToSingleCharacters(diff) {
       let res = _.chain(diff)
-        .map(function(d) {
+        .map((d) => {
           var res = [];
           for (var letter in d.value) {
             res.push({
@@ -29,9 +49,10 @@ module Speaker {
       return res;
     }
 
-    public static diffChars(sentenceOne, sentenceTwo) {
+    public static diffChars(sentenceOne: string, sentenceTwo: string): any[] {
       // diffChars diffWords diffWordsWithSpace
       var res = JsDiff.diffWords(sentenceOne.toLowerCase(), sentenceTwo.toLowerCase());
+
       res = this.getOnlyAddedDiffs(res);
       //res = splitToSingleCharacters(res);
       //res = revertLowerCase(sentenceOne, res);

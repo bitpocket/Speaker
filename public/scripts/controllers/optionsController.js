@@ -10,4 +10,4 @@ var Speaker;
         .module("app")
         .controller('optionsController', OptionsController);
 })(Speaker || (Speaker = {}));
-//# sourceMappingURL=optionsController.js.map
+//# sourceMappingURL=OptionsController.js.map

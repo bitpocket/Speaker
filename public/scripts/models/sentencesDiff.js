@@ -4,6 +4,19 @@ var Speaker;
     var SentencesDiff = (function () {
         function SentencesDiff() {
         }
+        SentencesDiff.getDiff = function (originalText, parsedText, confidence) {
+            var res = new Speaker.ParsedSentence();
+            res.originalText = originalText;
+            res.parsedText = parsedText;
+            res.confidence = Speaker.Utils.round(confidence, 2);
+            if (res.originalText && res.parsedText) {
+                res.sentencesDiff = SentencesDiff.diffChars(res.originalText, res.parsedText);
+            }
+            var editDistance = this.getEditDistance(res.originalText, res.parsedText);
+            res.editDistance = (1 - editDistance / res.originalText.length);
+            res.totalResultRounded = Speaker.Utils.round(res.editDistance, 2);
+            return res;
+        };
         SentencesDiff.getOnlyAddedDiffs = function (diff) {
             return _.filter(diff, function (d) {
                 return !d.removed;
@@ -78,4 +91,4 @@ var Speaker;
     }());
     Speaker.SentencesDiff = SentencesDiff;
 })(Speaker || (Speaker = {}));
-//# sourceMappingURL=sentencesDiff.js.map
+//# sourceMappingURL=SentencesDiff.js.map

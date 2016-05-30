@@ -7,30 +7,24 @@ var Speaker;
             this.speechService = speechService;
             this.$scope.language = Speaker.Languages.EN;
             var that = this;
-            $scope.$on("sentencesListChanged", function (event) { that.sentencesListChanged(that); });
-            $scope.$on("speechSyntheseStateChanged", function (event, speaking, paused) { that.speechSyntheseStateChanged(that, speaking, paused); });
-            $scope.$on("recognizedPhraseChanged", function (event, recognizedPhrase) { that.recognizedPhraseChanged(that, recognizedPhrase); });
-            $scope.$on("speechRecognitionStateChanged", function (event, started, ended) { that.speechRecognitionStateChanged(that, started, ended); });
-            $scope.addSentence = function (event, text) { that.addSentence(that, event, text); };
-            $scope.removeSentence = function (event, sentence) { that.removeSentence(that, event, sentence); };
-            $scope.selectSentence = function (event, sentence) { that.selectSentence(that, event, sentence); };
-            $scope.inputKeyPressed = function (event, text) { that.inputKeyPressed(that, event, text); };
-            $scope.playSentence = function (event, sentence) { that.playSentence(that, event, sentence); };
-            $scope.startSpeechRecognition = function (event, sentence) { that.startSpeechRecognition(that, event, sentence); };
+            this.$scope.$on("sentencesListChanged", function (event) { that.sentencesListChanged(that); });
+            this.$scope.$on("speechSyntheseStateChanged", function (event, speaking, paused) { that.speechSyntheseStateChanged(that, speaking, paused); });
+            this.$scope.$on("recognizedPhraseChanged", function (event, recognizedPhrase, confidence) { that.recognizedPhraseChanged(that, recognizedPhrase, confidence); });
+            this.$scope.$on("speechRecognitionStateChanged", function (event, started, ended) { that.speechRecognitionStateChanged(that, started, ended); });
+            this.$scope.addSentence = function (event, text) { that.addSentence(that, event, text); };
+            this.$scope.inputKeyPressed = function (event, text) { that.inputKeyPressed(that, event, text); };
+            this.$scope.removeSentence = function (event, sentence) { that.removeSentence(that, event, sentence); };
+            this.$scope.selectSentence = function (event, sentence) { that.selectSentence(that, event, sentence); };
+            this.$scope.playStopSentence = function (event, sentence) { that.playStopSentence(that, event, sentence); };
+            this.$scope.startStopSpeechRecongnition = function (event, sentence) { that.startStopSpeechRecongnition(that, event, sentence); };
             this.init();
         }
         HomeController.prototype.init = function () {
             this.sentencesService.load(undefined, undefined);
             this.$scope.selectedSentence = this.$scope.sentences[0];
         };
-        HomeController.prototype.processParsedPhrase = function (recognizedPhrase) {
-            this.$scope.parsedSentence = recognizedPhrase;
-            if (this.$scope.selectedSentence && this.$scope.selectedSentence.text && this.$scope.parsedSentence.text) {
-                this.$scope.sentencesDiff = Speaker.SentencesDiff.diffChars(this.$scope.selectedSentence.text, this.$scope.parsedSentence.text);
-            }
-            var confidence = recognizedPhrase.confidence, editDistance = Speaker.SentencesDiff.getEditDistance(this.$scope.selectedSentence.text, this.$scope.parsedSentence.text), editDistanceNormalized = (1 - editDistance / this.$scope.selectedSentence.text.length), totalResult = Speaker.Utils.round(editDistanceNormalized, 2);
-            this.$scope.parsedSentence["editDistance"] = editDistanceNormalized;
-            this.$scope.parsedSentence["totalResult"] = totalResult;
+        HomeController.prototype.processParsedPhrase = function (recognizedPhrase, confidence) {
+            this.$scope.parsedSentence = Speaker.SentencesDiff.getDiff(this.$scope.selectedSentence ? this.$scope.selectedSentence.text : "", recognizedPhrase, confidence);
         };
         HomeController.prototype.sentencesListChanged = function (that) {
             that.$scope.sentences = that.sentencesService.sentences;
@@ -40,8 +34,8 @@ var Speaker;
             that.$scope.speechStatePaused = paused;
             that.$scope.$apply();
         };
-        HomeController.prototype.recognizedPhraseChanged = function (that, recognizedPhrase) {
-            that.processParsedPhrase(recognizedPhrase);
+        HomeController.prototype.recognizedPhraseChanged = function (that, recognizedPhrase, confidence) {
+            that.processParsedPhrase(recognizedPhrase, confidence);
             that.$scope.$apply();
         };
         HomeController.prototype.speechRecognitionStateChanged = function (that, started, ended) {
@@ -51,7 +45,7 @@ var Speaker;
         };
         HomeController.prototype.addSentence = function (that, event, test) {
             that.sentencesService.addSentence(that.$scope.language, test);
-            that.$scope.searchingPhrase = null;
+            that.$scope.searchingPhrase = undefined;
             event.preventDefault();
         };
         HomeController.prototype.removeSentence = function (that, event, sentence) {
@@ -60,8 +54,8 @@ var Speaker;
         };
         HomeController.prototype.selectSentence = function (that, event, sentence) {
             that.$scope.selectedSentence = sentence;
-            that.$scope.parsedSentence = null;
-            that.$scope.sentencesDiff = null;
+            that.$scope.parsedSentence = undefined;
+            that.$scope.sentencesDiff = undefined;
             event.preventDefault();
         };
         HomeController.prototype.inputKeyPressed = function (that, event, text) {
@@ -73,27 +67,13 @@ var Speaker;
                 return true;
             }
         };
-        HomeController.prototype.playSentence = function (that, event, sentence) {
-            if (!that.$scope.speechStateSpeaking) {
-                that.speechService.startSpeaking(that.$scope.selectedSentence);
-            }
-            else {
-                that.speechService.cancelSpeaking();
-            }
+        HomeController.prototype.playStopSentence = function (that, event, sentence) {
+            that.speechService.playStopSentence(sentence);
             event.preventDefault();
         };
-        HomeController.prototype.startSpeechRecognition = function (that, event, sentence) {
-            if (!that.$scope.recognitionSateStarted) {
-                that.speechService.startRecongnition(that.$scope.selectedSentence);
-            }
-            else {
-                that.speechService.stopRecongnition();
-            }
+        HomeController.prototype.startStopSpeechRecongnition = function (that, event, sentence) {
+            that.speechService.startStopSpeechRecongnition(sentence);
             event.preventDefault();
-        };
-        HomeController.prototype.extend = function (ChildClass, ParentClass) {
-            ChildClass.prototype = ParentClass();
-            ChildClass.prototype.constructor = ChildClass;
         };
         HomeController.$inject = ["$scope", "sentencesService", "speechService"];
         return HomeController;
@@ -102,4 +82,4 @@ var Speaker;
         .module("app")
         .controller('homeController', HomeController);
 })(Speaker || (Speaker = {}));
-//# sourceMappingURL=homeController.js.map
+//# sourceMappingURL=HomeController.js.map

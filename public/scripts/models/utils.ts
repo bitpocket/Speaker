@@ -10,8 +10,8 @@ module Speaker {
       });
     }
 
-    public static round(value: number, decimalPlaces: number): string {
-      return parseFloat((Math.round(value * Math.pow(10, decimalPlaces)) / Math.pow(10, decimalPlaces)).toString()).toFixed(decimalPlaces);
+    public static round(value: number, decimalPlaces: number): number {
+      return Math.round(value * Math.pow(10, decimalPlaces)) / Math.pow(10, decimalPlaces);
     }
   }
 

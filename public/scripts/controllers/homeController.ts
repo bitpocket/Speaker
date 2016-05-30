@@ -13,81 +13,72 @@ module Speaker {
       this.$scope.language = Languages.EN;
 
       let that: HomeController = this;
-      $scope.$on("sentencesListChanged", event => { that.sentencesListChanged(that) });
-      $scope.$on("speechSyntheseStateChanged", (event, speaking, paused) => { that.speechSyntheseStateChanged(that, speaking, paused); });
-      $scope.$on("recognizedPhraseChanged", (event, recognizedPhrase) => { that.recognizedPhraseChanged(that, recognizedPhrase); });
-      $scope.$on("speechRecognitionStateChanged", (event, started, ended) => { that.speechRecognitionStateChanged(that, started, ended); });
-      $scope.addSentence = (event, text: string) => { that.addSentence(that, event, text); };
-      $scope.removeSentence = (event, sentence: Sentence) => { that.removeSentence(that, event, sentence); };
-      $scope.selectSentence = (event, sentence: Sentence) => { that.selectSentence(that, event, sentence); };
-      $scope.inputKeyPressed = (event, text: string) => { that.inputKeyPressed(that, event, text); };
-      $scope.playSentence = (event, sentence: Sentence) => { that.playSentence(that, event, sentence); };
-      $scope.startSpeechRecognition = (event, sentence: Sentence) => { that.startSpeechRecognition(that, event, sentence); };
-
+      this.$scope.$on("sentencesListChanged", event => { that.sentencesListChanged(that) });
+      this.$scope.$on("speechSyntheseStateChanged", (event, speaking, paused) => { that.speechSyntheseStateChanged(that, speaking, paused); });
+      this.$scope.$on("recognizedPhraseChanged", (event, recognizedPhrase: string, confidence: number) => { that.recognizedPhraseChanged(that, recognizedPhrase, confidence); });
+      this.$scope.$on("speechRecognitionStateChanged", (event, started, ended) => { that.speechRecognitionStateChanged(that, started, ended); });
+      this.$scope.addSentence = (event, text: string) => { that.addSentence(that, event, text); };
+      this.$scope.inputKeyPressed = (event, text: string) => { that.inputKeyPressed(that, event, text); };
+      this.$scope.removeSentence = (event, sentence: Sentence) => { that.removeSentence(that, event, sentence); };
+      this.$scope.selectSentence = (event, sentence: Sentence) => { that.selectSentence(that, event, sentence); };
+      this.$scope.playStopSentence = (event, sentence: Sentence) => { that.playStopSentence(that, event, sentence); };
+      this.$scope.startStopSpeechRecongnition = (event, sentence: Sentence) => { that.startStopSpeechRecongnition(that, event, sentence); };
       this.init();
     }
 
-    init() {
+    init(): void {
       this.sentencesService.load(undefined, undefined);
       this.$scope.selectedSentence = this.$scope.sentences[0];
     }
 
-    processParsedPhrase(recognizedPhrase: Sentence) {
-      this.$scope.parsedSentence = recognizedPhrase;
-
-      if (this.$scope.selectedSentence && this.$scope.selectedSentence.text && this.$scope.parsedSentence.text) {
-        this.$scope.sentencesDiff = SentencesDiff.diffChars(this.$scope.selectedSentence.text, this.$scope.parsedSentence.text);
-      }
-
-      var confidence = recognizedPhrase.confidence,
-        editDistance = SentencesDiff.getEditDistance(this.$scope.selectedSentence.text, this.$scope.parsedSentence.text),
-        editDistanceNormalized = (1 - editDistance / this.$scope.selectedSentence.text.length),
-        totalResult = Utils.round(editDistanceNormalized, 2);
-
-      this.$scope.parsedSentence["editDistance"] = editDistanceNormalized;
-      this.$scope.parsedSentence["totalResult"] = totalResult;
+    processParsedPhrase(recognizedPhrase: string, confidence: number): void {
+      this.$scope.parsedSentence = SentencesDiff.getDiff(
+        this.$scope.selectedSentence ? this.$scope.selectedSentence.text : "",
+        recognizedPhrase,
+        confidence
+      );
     }
 
-    sentencesListChanged(that: HomeController) {
+    sentencesListChanged(that: HomeController): void {
       that.$scope.sentences = that.sentencesService.sentences;
     }
 
-    speechSyntheseStateChanged(that: HomeController, speaking: boolean, paused: boolean) {
+    speechSyntheseStateChanged(that: HomeController, speaking: boolean, paused: boolean): void {
       that.$scope.speechStateSpeaking = speaking;
       that.$scope.speechStatePaused = paused;
       that.$scope.$apply();
     }
 
-    recognizedPhraseChanged(that: HomeController, recognizedPhrase) {
-      that.processParsedPhrase(recognizedPhrase);
+    recognizedPhraseChanged(that: HomeController, recognizedPhrase: string, confidence: number): void {
+      that.processParsedPhrase(recognizedPhrase, confidence);
       that.$scope.$apply();
     }
 
-    speechRecognitionStateChanged(that: HomeController, started, ended) {
+    speechRecognitionStateChanged(that: HomeController, started, ended): void {
       that.$scope.recognitionSateStarted = started;
       that.$scope.recognitionSateEnded = ended;
       that.$scope.$apply();
     }
 
-    addSentence(that: HomeController, event, test: string) {
+    addSentence(that: HomeController, event, test: string): void {
       that.sentencesService.addSentence(that.$scope.language, test);
-      that.$scope.searchingPhrase = null;
+      that.$scope.searchingPhrase = undefined;
       event.preventDefault();
     }
 
-    removeSentence(that: HomeController, event, sentence: Sentence) {
+    removeSentence(that: HomeController, event, sentence: Sentence): void {
       that.sentencesService.removeSentence(sentence);
       event.preventDefault();
     }
 
-    selectSentence(that: HomeController, event, sentence: Sentence) {
+    selectSentence(that: HomeController, event, sentence: Sentence): void {
       that.$scope.selectedSentence = sentence;
-      that.$scope.parsedSentence = null;
-      that.$scope.sentencesDiff = null;
+      that.$scope.parsedSentence = undefined;
+      that.$scope.sentencesDiff = undefined;
       event.preventDefault();
     }
 
-    inputKeyPressed(that: HomeController, event, text: string) {
+    inputKeyPressed(that: HomeController, event, text: string): boolean {
       if (event.keyCode == 13) {
         that.$scope.addSentence(event, text);
         return false; // returning false will prevent the event from bubbling up.
@@ -96,30 +87,15 @@ module Speaker {
       }
     }
 
-    playSentence(that: HomeController, event, sentence: Sentence) {
-      if (!that.$scope.speechStateSpeaking) {
-        that.speechService.startSpeaking(that.$scope.selectedSentence);
-      } else {
-        that.speechService.cancelSpeaking();
-      }
-
+    playStopSentence(that: HomeController, event, sentence: Sentence): void {
+      that.speechService.playStopSentence(sentence);
       event.preventDefault();
     }
 
-    startSpeechRecognition(that: HomeController, event, sentence: Sentence) {
-      if (!that.$scope.recognitionSateStarted) {
-        that.speechService.startRecongnition(that.$scope.selectedSentence);
-      } else {
-        that.speechService.stopRecongnition();
-      }
+    startStopSpeechRecongnition(that: HomeController, event, sentence: Sentence): void {
+      that.speechService.startStopSpeechRecongnition(sentence);
       event.preventDefault();
     }
-
-    extend(ChildClass, ParentClass) {
-      ChildClass.prototype = ParentClass();
-      ChildClass.prototype.constructor = ChildClass;
-    }
-
   }
 
   angular

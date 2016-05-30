@@ -1,31 +1,45 @@
 module Speaker {
 
-  export interface SpeechServiceInterface {
+  declare var webkitSpeechRecognition: any;
+  declare var speechSynthesis: any;
+  declare var SpeechSynthesisUtterance: any;
 
+  export interface SpeechServiceInterface {
+    playStopSentence(sentence: Sentence);
+    startStopSpeechRecongnition(sentence: Sentence);
   }
 
   class SpeechService implements SpeechServiceInterface {
     static $inject = ["$rootScope"];
-    $rootScope;
-    utterance;
-    voices
-    isRecognizing = false;
-    recogizedPhrase = "say it ...";
-    recognition = undefined;
+    $rootScope: ng.IScope;
+    utterance: any;
+    voices: any[];
+    isRecognizing: boolean = false;
+    recogizedPhrase: string = "say it ...";
+    recognition: any = undefined;
+    speechStateSpeaking: boolean = false;
 
-    constructor($rootScope) {
+    constructor($rootScope: ng.IScope) {
       this.$rootScope = $rootScope;
       this.init();
       this.listenInit();
     }
 
-    public startSpeaking(phrase): void {
-      this.utterance.text = phrase.text;
-      this.utterance.lang = phrase.language;
+    public playStopSentence(sentence: Sentence): void {
+      if (this.speechStateSpeaking) {
+        this.cancelSpeaking();
+      } else {
+        this.startSpeaking(sentence);
+      }
+    }
+
+    startSpeaking(sentence: Sentence): void {
+      this.utterance.text = sentence.text;
+      this.utterance.lang = sentence.language;
       this.utterance.rate = 1.0;
 
-      if (phrase.language === Languages.EN.id) {
-        this.utterance.voice = this.voices.filter(function(voice) {
+      if (sentence.language === Languages.EN.id) {
+        this.utterance.voice = this.voices.filter((voice) => {
           return voice.name == 'Google UK English Male';
         })[0];
       }
@@ -33,27 +47,22 @@ module Speaker {
       speechSynthesis.speak(this.utterance);
     };
 
-    public cancelSpeaking(): void {
-      window.speechSynthesis.cancel();
+    cancelSpeaking(): void {
+      speechSynthesis.cancel();
     };
 
-    public startRecongnition(phrase): void {
+    public startStopSpeechRecongnition(sentence: Sentence): void {
       if (this.isRecognizing) {
         this.recognition.stop();
         this.isRecognizing = false;
       } else {
         this.recogizedPhrase = "say it ...";
-        this.recognition.lang = phrase.language;
+        this.recognition.lang = sentence.language;
         this.recognition.start();
       }
     };
 
-    public stopRecongnition(): void {
-      this.recognition.stop();
-      this.speechRecognitionStateChanged(false, true);
-    };
-
-    listenInit() {
+    listenInit(): void {
       if ('webkitSpeechRecognition' in window) {
         let that = this;
 
@@ -61,27 +70,27 @@ module Speaker {
         this.recognition.continuous = true;
         this.recognition.interimResults = true;
 
-        this.recognition.onstart = function() {
+        this.recognition.onstart = () => {
           that.isRecognizing = true;
           that.speechRecognitionStateChanged(true, false);
         };
 
-        this.recognition.onerror = function(event) {
+        this.recognition.onerror = (event) => {
           that.recogizedPhrase = "There was a recognition error...";
           that.speechRecognitionStateChanged(false, true);
         };
 
-        this.recognition.onend = function() {
+        this.recognition.onend = () => {
           that.isRecognizing = false;
           that.speechRecognitionStateChanged(false, true);
         };
 
-        that.recognition.onresult = function(event) {
+        that.recognition.onresult = (event: any) => {
           var interimTranscript = '';
           // Assemble the transcript from the array of results
           for (var i = event.resultIndex; i < event.results.length; ++i) {
             var confid = event.results[i][0].confidence,
-              confidFix = parseFloat((Math.round(confid * 100) / 100).toString()).toFixed(2);
+              confidFix = Utils.round(confid, 2);
 
             if (event.results[i].isFinal) {
               that.recogizedPhrase = event.results[i][0].transcript;
@@ -89,11 +98,11 @@ module Speaker {
               that.isRecognizing = false;
               console.log(that.recogizedPhrase, confidFix);
               that.speechRecognitionStateChanged(false, true);
-              that.recognizedPhraseChanged(that.recogizedPhrase, confidFix);
+              that.recognizedPhraseChanged(that.recogizedPhrase, confid);
             } else {
               that.recogizedPhrase = event.results[i][0].transcript;
               console.log(that.recogizedPhrase, confidFix);
-              that.recognizedPhraseChanged(that.recogizedPhrase, confidFix);
+              that.recognizedPhraseChanged(that.recogizedPhrase, confid);
             }
           }
         };
@@ -101,29 +110,27 @@ module Speaker {
       }
     }
 
-    speechSyntheseStateChanged(that) {
+    speechSyntheseStateChanged(that: SpeechService): void {
+      that.speechStateSpeaking = speechSynthesis.speaking;
       that.$rootScope.$broadcast("speechSyntheseStateChanged", speechSynthesis.speaking, speechSynthesis.paused);
     }
 
-    speechRecognitionStateChanged(started, stopped) {
+    speechRecognitionStateChanged(started: boolean, stopped: boolean): void {
       this.$rootScope.$broadcast("speechRecognitionStateChanged", started, stopped);
     }
 
-    recognizedPhraseChanged(recogizedPhrase, confidence) {
-      this.$rootScope.$broadcast("recognizedPhraseChanged", {
-        text: recogizedPhrase,
-        confidence: confidence
-      });
+    recognizedPhraseChanged(recogizedPhrase: string, confidence: number): void {
+      this.$rootScope.$broadcast("recognizedPhraseChanged", recogizedPhrase, confidence);
     }
 
-    init() {
+    init(): void {
       if ('speechSynthesis' in window) {
         let that = this;
         this.utterance = new SpeechSynthesisUtterance();
-        this.utterance.onstart = function() { that.speechSyntheseStateChanged(that) };
-        this.utterance.onend = function() { that.speechSyntheseStateChanged(that) };
-        this.utterance.onpause = function() { that.speechSyntheseStateChanged(that) };
-        this.voices = window.speechSynthesis.getVoices();
+        this.utterance.onstart = () => { that.speechSyntheseStateChanged(that) };
+        this.utterance.onend = () => { that.speechSyntheseStateChanged(that) };
+        this.utterance.onpause = () => { that.speechSyntheseStateChanged(that) };
+        this.voices = speechSynthesis.getVoices();
       }
     }
 

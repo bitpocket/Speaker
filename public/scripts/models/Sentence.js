@@ -10,4 +10,4 @@ var Speaker;
     }());
     Speaker.Sentence = Sentence;
 })(Speaker || (Speaker = {}));
-//# sourceMappingURL=sentence.js.map
+//# sourceMappingURL=Sentence.js.map

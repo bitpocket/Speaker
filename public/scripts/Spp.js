@@ -4,4 +4,4 @@ var Speaker;
     angular
         .module("app", ["ngRoute"]);
 })(Speaker || (Speaker = {}));
-//# sourceMappingURL=App.js.map
+//# sourceMappingURL=Spp.js.map

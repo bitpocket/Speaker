@@ -5,33 +5,24 @@
 
       <div class="row original-sentence" ng-show="selectedSentence">
         <div class="col-sm-1 col-md-1 col-lg-1">
-          <a href=" " class="glyphicon" ng-class="{'glyphicon-play': !speechStateSpeaking, 'glyphicon-stop': speechStateSpeaking}" ng-click="playSentence($event, selectedSentence)"></a>
+          <a href=" " class="glyphicon" ng-class="{'glyphicon-play': !speechStateSpeaking, 'glyphicon-stop': speechStateSpeaking}" ng-click="playStopSentence($event, selectedSentence)"></a>
         </div>
         <div class="col-sm-11 col-md-11 col-lg-11">
           <div class="sentence">{{selectedSentence.text}}</div>
         </div>
       </div>
 
-      <!-- <div class="row parsed-sentence" ng-show="selectedSentence">
-        <div class="col-sm-1 col-md-1 col-lg-1">
-          <a href=" " class="glyphicon" ng-class="{'glyphicon-record': !recognitionSateStarted, 'glyphicon-stop': recognitionSateStarted}" ng-click="startSpeechRecognition($event)"></a>
-        </div>
-        <div class="col-sm-11 col-md-11 col-lg-11">
-          <div class="sentence">{{parsedSentence.text}}</div>
-        </div>
-      </div> -->
-
       <div class="row parsed-sentence" ng-show="selectedSentence">
         <div class="col-sm-1 col-md-1 col-lg-1">
-          <a href=" " class="glyphicon" ng-class="{'glyphicon-record': !recognitionSateStarted, 'glyphicon-stop': recognitionSateStarted}" ng-click="startSpeechRecognition($event)"></a>
+          <a href=" " class="glyphicon" ng-class="{'glyphicon-record': !recognitionSateStarted, 'glyphicon-stop': recognitionSateStarted}" ng-click="startStopSpeechRecongnition($event, selectedSentence)"></a>
         </div>
         <div class="col-sm-11 col-md-11 col-lg-11">
           <div class="sentence">
-            <div ng-repeat="letter in sentencesDiff track by $index" ng-class="{'added': letter.added, 'removed': letter.removed, 'no-change': !(letter.added || letter.removed)}">
+            <div ng-repeat="letter in parsedSentence.sentencesDiff track by $index" ng-class="{'added': letter.added, 'removed': letter.removed, 'no-change': !(letter.added || letter.removed)}">
               {{letter.value}}&nbsp;
             </div>
-            <div ng-show="parsedSentence && parsedSentence.totalResult">
-              ({{parsedSentence.totalResult}})
+            <div ng-show="parsedSentence && parsedSentence.totalResultRounded">
+              (diff: {{parsedSentence.totalResultRounded}}; confidence: {{parsedSentence.confidence}})
             </div>
           </div>
         </div>

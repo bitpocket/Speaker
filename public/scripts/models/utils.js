@@ -12,10 +12,10 @@ var Speaker;
             });
         };
         Utils.round = function (value, decimalPlaces) {
-            return parseFloat((Math.round(value * Math.pow(10, decimalPlaces)) / Math.pow(10, decimalPlaces)).toString()).toFixed(decimalPlaces);
+            return Math.round(value * Math.pow(10, decimalPlaces)) / Math.pow(10, decimalPlaces);
         };
         return Utils;
     }());
     Speaker.Utils = Utils;
 })(Speaker || (Speaker = {}));
-//# sourceMappingURL=utils.js.map
+//# sourceMappingURL=Utils.js.map
