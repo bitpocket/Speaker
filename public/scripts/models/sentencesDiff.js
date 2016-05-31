@@ -4,6 +4,7 @@ var Speaker;
     var SentencesDiff = (function () {
         function SentencesDiff() {
         }
+        // methods
         SentencesDiff.getDiff = function (originalText, parsedText, confidence) {
             var res = new Speaker.ParsedSentence();
             res.originalText = originalText;

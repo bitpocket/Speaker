@@ -5,7 +5,7 @@ module Speaker {
   declare var JsDiff: any;
 
   export class SentencesDiff {
-
+    // methods
     public static getDiff(originalText: string, parsedText: string, confidence: number): ParsedSentence {
       let res: ParsedSentence = new ParsedSentence();
 
@@ -102,5 +102,4 @@ module Speaker {
       return matrix[b.length][a.length];
     }
   }
-
 }
