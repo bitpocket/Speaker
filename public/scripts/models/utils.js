@@ -3,6 +3,7 @@ var Speaker;
     var Utils = (function () {
         function Utils() {
         }
+        // methods
         Utils.getUuid = function () {
             // Otherwise, just use Math.random
             // http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript/2117523#2117523
@@ -18,4 +19,4 @@ var Speaker;
     }());
     Speaker.Utils = Utils;
 })(Speaker || (Speaker = {}));
-//# sourceMappingURL=Utils.js.map
+//# sourceMappingURL=utils.js.map

@@ -1,6 +1,6 @@
 module Speaker {
-
   export class Languages {
+    // fields
     public static CS: Language = new Language("CS", "cs-CS");
     public static EN: Language = new Language("GB", "en-GB");
     public static ES: Language = new Language("ES", "es-ES");
@@ -10,5 +10,4 @@ module Speaker {
     public static PT: Language = new Language("PT", "pt-PT");
     public static SK: Language = new Language("SK", "sk-SK");
   }
-  
 }

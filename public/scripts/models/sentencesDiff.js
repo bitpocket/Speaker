@@ -91,4 +91,4 @@ var Speaker;
     }());
     Speaker.SentencesDiff = SentencesDiff;
 })(Speaker || (Speaker = {}));
-//# sourceMappingURL=SentencesDiff.js.map
+//# sourceMappingURL=sentencesDiff.js.map

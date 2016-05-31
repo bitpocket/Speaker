@@ -1,6 +1,7 @@
 var Speaker;
 (function (Speaker) {
     var Language = (function () {
+        // methods
         function Language(label, id) {
             this.label = label;
             this.id = id;
@@ -9,4 +10,4 @@ var Speaker;
     }());
     Speaker.Language = Language;
 })(Speaker || (Speaker = {}));
-//# sourceMappingURL=Language.js.map
+//# sourceMappingURL=language.js.map

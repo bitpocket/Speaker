@@ -1,11 +1,12 @@
 module Speaker {
-
   class HomeController {
+    // fields
     static $inject = ["$scope", "sentencesService", "speechService"];
     $scope: HomeControllerScopeInterface;
     sentencesService: SentencesServiceInterface;
     speechService: SpeechServiceInterface;
 
+    // methods
     constructor($scope: HomeControllerScopeInterface, sentencesService: SentencesServiceInterface, speechService: SpeechServiceInterface) {
       this.$scope = $scope;
       this.sentencesService = sentencesService;

@@ -1,6 +1,7 @@
 var Speaker;
 (function (Speaker) {
     var SpeechService = (function () {
+        // methods
         function SpeechService($rootScope) {
             this.isRecognizing = false;
             this.recogizedPhrase = "say it ...";
@@ -18,6 +19,18 @@ var Speaker;
                 this.startSpeaking(sentence);
             }
         };
+        SpeechService.prototype.startStopSpeechRecongnition = function (sentence) {
+            if (this.isRecognizing) {
+                this.recognition.stop();
+                this.isRecognizing = false;
+            }
+            else {
+                this.recogizedPhrase = "say it ...";
+                this.recognition.lang = sentence.language;
+                this.recognition.start();
+            }
+        };
+        ;
         SpeechService.prototype.startSpeaking = function (sentence) {
             this.utterance.text = sentence.text;
             this.utterance.lang = sentence.language;
@@ -32,18 +45,6 @@ var Speaker;
         ;
         SpeechService.prototype.cancelSpeaking = function () {
             speechSynthesis.cancel();
-        };
-        ;
-        SpeechService.prototype.startStopSpeechRecongnition = function (sentence) {
-            if (this.isRecognizing) {
-                this.recognition.stop();
-                this.isRecognizing = false;
-            }
-            else {
-                this.recogizedPhrase = "say it ...";
-                this.recognition.lang = sentence.language;
-                this.recognition.start();
-            }
         };
         ;
         SpeechService.prototype.listenInit = function () {
@@ -106,6 +107,7 @@ var Speaker;
                 this.voices = speechSynthesis.getVoices();
             }
         };
+        // fields
         SpeechService.$inject = ["$rootScope"];
         return SpeechService;
     }());
@@ -113,4 +115,4 @@ var Speaker;
         .module("app")
         .service("speechService", SpeechService);
 })(Speaker || (Speaker = {}));
-//# sourceMappingURL=Speech.js.map
+//# sourceMappingURL=speech.js.map

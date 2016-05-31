@@ -1,12 +1,14 @@
 module Speaker {
+  class MainController {
+    // fields
+    static $inject = ["$scope"];
 
-    class MainController {
-        static $inject = ["$scope"];
-        constructor($scope) {
-        }
+    // methods
+    constructor($scope) {
     }
+  }
 
-    angular
-        .module("app")
-        .controller('mainController', MainController);
+  angular
+    .module("app")
+    .controller('mainController', MainController);
 }

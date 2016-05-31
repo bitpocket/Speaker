@@ -10,6 +10,8 @@ module Speaker {
   }
 
   class SpeechService implements SpeechServiceInterface {
+
+    // fields
     static $inject = ["$rootScope"];
     $rootScope: ng.IScope;
     utterance: any;
@@ -19,6 +21,7 @@ module Speaker {
     recognition: any = undefined;
     speechStateSpeaking: boolean = false;
 
+    // methods
     constructor($rootScope: ng.IScope) {
       this.$rootScope = $rootScope;
       this.init();
@@ -32,6 +35,17 @@ module Speaker {
         this.startSpeaking(sentence);
       }
     }
+
+    public startStopSpeechRecongnition(sentence: Sentence): void {
+      if (this.isRecognizing) {
+        this.recognition.stop();
+        this.isRecognizing = false;
+      } else {
+        this.recogizedPhrase = "say it ...";
+        this.recognition.lang = sentence.language;
+        this.recognition.start();
+      }
+    };
 
     startSpeaking(sentence: Sentence): void {
       this.utterance.text = sentence.text;
@@ -49,17 +63,6 @@ module Speaker {
 
     cancelSpeaking(): void {
       speechSynthesis.cancel();
-    };
-
-    public startStopSpeechRecongnition(sentence: Sentence): void {
-      if (this.isRecognizing) {
-        this.recognition.stop();
-        this.isRecognizing = false;
-      } else {
-        this.recogizedPhrase = "say it ...";
-        this.recognition.lang = sentence.language;
-        this.recognition.start();
-      }
     };
 
     listenInit(): void {
@@ -133,8 +136,6 @@ module Speaker {
         this.voices = speechSynthesis.getVoices();
       }
     }
-
-
   }
 
   angular

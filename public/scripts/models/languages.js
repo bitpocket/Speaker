@@ -3,6 +3,7 @@ var Speaker;
     var Languages = (function () {
         function Languages() {
         }
+        // fields
         Languages.CS = new Speaker.Language("CS", "cs-CS");
         Languages.EN = new Speaker.Language("GB", "en-GB");
         Languages.ES = new Speaker.Language("ES", "es-ES");
@@ -15,4 +16,4 @@ var Speaker;
     }());
     Speaker.Languages = Languages;
 })(Speaker || (Speaker = {}));
-//# sourceMappingURL=Languages.js.map
+//# sourceMappingURL=languages.js.map

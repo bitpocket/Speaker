@@ -1,8 +1,10 @@
 var Speaker;
 (function (Speaker) {
     var MainController = (function () {
+        // methods
         function MainController($scope) {
         }
+        // fields
         MainController.$inject = ["$scope"];
         return MainController;
     }());
@@ -10,4 +12,4 @@ var Speaker;
         .module("app")
         .controller('mainController', MainController);
 })(Speaker || (Speaker = {}));
-//# sourceMappingURL=MainController.js.map
+//# sourceMappingURL=mainController.js.map

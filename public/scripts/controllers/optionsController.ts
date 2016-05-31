@@ -1,12 +1,14 @@
 module Speaker {
+  class OptionsController {
+    // fileds
+    static $inject = ["$scope"];
 
-    class OptionsController {
-        static $inject = ["$scope"];
-        constructor($scope) {
-        }
+    // methods
+    constructor($scope) {
     }
+  }
 
-    angular
-        .module("app")
-        .controller('optionsController', OptionsController);
+  angular
+    .module("app")
+    .controller('optionsController', OptionsController);
 }

@@ -1,6 +1,7 @@
 var Speaker;
 (function (Speaker) {
     var HomeController = (function () {
+        // methods
         function HomeController($scope, sentencesService, speechService) {
             this.$scope = $scope;
             this.sentencesService = sentencesService;
@@ -75,6 +76,7 @@ var Speaker;
             that.speechService.startStopSpeechRecongnition(sentence);
             event.preventDefault();
         };
+        // fields
         HomeController.$inject = ["$scope", "sentencesService", "speechService"];
         return HomeController;
     }());
@@ -82,4 +84,4 @@ var Speaker;
         .module("app")
         .controller('homeController', HomeController);
 })(Speaker || (Speaker = {}));
-//# sourceMappingURL=HomeController.js.map
+//# sourceMappingURL=homeController.js.map

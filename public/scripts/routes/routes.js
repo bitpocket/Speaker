@@ -13,4 +13,4 @@ var Speaker;
         });
     });
 })(Speaker || (Speaker = {}));
-//# sourceMappingURL=Routes.js.map
+//# sourceMappingURL=routes.js.map

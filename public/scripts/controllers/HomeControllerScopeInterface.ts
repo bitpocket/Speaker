@@ -1,9 +1,8 @@
 module Speaker {
-
   export interface HomeControllerScopeInterface extends ng.IScope {
     sentences: Sentence[];
     selectedSentence: Sentence;
-    parsedSentence: ParsedSentence;    
+    parsedSentence: ParsedSentence;
     searchingPhrase: String;
     speechStateSpeaking: Boolean;
     speechStatePaused: Boolean;
@@ -18,5 +17,4 @@ module Speaker {
     playStopSentence(event, sentence: Sentence);
     startStopSpeechRecongnition(event, sentence: Sentence);
   }
-
 }

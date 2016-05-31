@@ -8,34 +8,15 @@ module Speaker {
   }
 
   class SentencesService implements SentencesServiceInterface {
+    // fields
+    $rootScope: ng.IScope;
     static $inject = ["$rootScope"];
-    $rootScope;
-
-    constructor($rootScope) {
-      this.$rootScope = $rootScope;
-    }
-
+    localStorageKey = "speakerSentences";
     public sentences: Sentence[];
 
-    localStorageKey = "speakerSentences";
-    getSentencesFromLocalStorage(): Sentence[] {
-      var stringSentences = window.localStorage.getItem(this.localStorageKey) || '[]';
-      return JSON.parse(stringSentences);
-    }
-
-    setSentencesToLocalStorage(sentences) {
-      var stringSentences = JSON.stringify(sentences);
-      window.localStorage.setItem(this.localStorageKey, stringSentences);
-    }
-
-    getDefaultSentences(): Sentence[] {
-      return [
-        new Sentence(Languages.EN.id, "The show lets us see the very familiar through fresh eyes."),
-        new Sentence(Languages.EN.id, "Guests reaction vary from genuine enthisiasm, to absolute loathing: 'I couldn't bear it'"),
-        new Sentence(Languages.EN.id, "He encourage his guests to undertake chellenges such as constructing flat-pack furniture."),
-        new Sentence(Languages.EN.id, "Do you mind me asking if you’re in a relationship?"),
-        new Sentence(Languages.EN.id, "I felt very awkward about it."),
-      ];
+    // methods
+    constructor($rootScope) {
+      this.$rootScope = $rootScope;
     }
 
     public removeSentence(sentence): void {
@@ -58,16 +39,36 @@ module Speaker {
       this.$rootScope.$broadcast("sentencesListChanged");
     }
 
-    save(success, error):void {
-      this.setSentencesToLocalStorage(this.sentences);
-      if (success) success("OK");
-    }
-
     public addSentence(language: Language, text: string): void {
       this.sentences.push(new Sentence(language.id, text));
 
       this.$rootScope.$broadcast("sentencesListChanged");
       this.save(undefined, undefined);
+    }
+
+    getSentencesFromLocalStorage(): Sentence[] {
+      var stringSentences = window.localStorage.getItem(this.localStorageKey) || '[]';
+      return JSON.parse(stringSentences);
+    }
+
+    setSentencesToLocalStorage(sentences) {
+      var stringSentences = JSON.stringify(sentences);
+      window.localStorage.setItem(this.localStorageKey, stringSentences);
+    }
+
+    getDefaultSentences(): Sentence[] {
+      return [
+        new Sentence(Languages.EN.id, "The show lets us see the very familiar through fresh eyes."),
+        new Sentence(Languages.EN.id, "Guests reaction vary from genuine enthisiasm, to absolute loathing: 'I couldn't bear it'"),
+        new Sentence(Languages.EN.id, "He encourage his guests to undertake chellenges such as constructing flat-pack furniture."),
+        new Sentence(Languages.EN.id, "Do you mind me asking if you’re in a relationship?"),
+        new Sentence(Languages.EN.id, "I felt very awkward about it."),
+      ];
+    }
+
+    save(success, error):void {
+      this.setSentencesToLocalStorage(this.sentences);
+      if (success) success("OK");
     }
   }
 
